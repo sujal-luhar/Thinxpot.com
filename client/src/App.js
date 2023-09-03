@@ -1,10 +1,10 @@
 import React from 'react'
-import Navbar from './components/Navbar/Navbar'
+import StickyNavbar from './components/Navbar/Navbar'
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <StickyNavbar />
     </div>
   )
 }
