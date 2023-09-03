@@ -64,7 +64,7 @@ export default function MTNavbar() {
   );
  
   return (
-    <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] overflow-scroll">
+    <div className="-m-2 max-h-[768px] w-[calc(100%+8px)]">
       <Navbar className="sticky top-4 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
@@ -129,7 +129,7 @@ export default function MTNavbar() {
           </Button>
         </MobileNav>
       </Navbar>
-      <div className="mx-auto max-w-screen-md py-12">
+      {/* <div className="mx-auto max-w-screen-md py-12">
         <Card className="mb-12 overflow-hidden">
           <img
             alt="nature"
@@ -155,7 +155,7 @@ export default function MTNavbar() {
           to be a chunk of change. There are more projects lined up charge extra
           the next time.
         </Typography>
-      </div>
+      </div> */}
     </div>
   );
 }
