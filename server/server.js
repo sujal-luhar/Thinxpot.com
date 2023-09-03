@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser'); // You might need to install this middleware
 // const passport = require('passport');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.json()); // Parse JSON request bodies
 app.use(cors()); // Enable CORS for all routes (you can configure this as needed)
 app.use(bodyParser.urlencoded({ extended: true })); // You might need this for form data parsing
+app.use('/api/upload', uploadRoutes);
 // // Set up Express sessions
 // app.use(
 //   session({
