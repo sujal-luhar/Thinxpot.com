@@ -9,14 +9,14 @@ import Home from './pages/home/Home';
 
 
 function App() {
-  var user = true
+  var user = false
 
   return (
     <div>
       <Router>
       {user ? <NavbarIn /> : <StickyNavbar />}
         <Routes>
-          <Route path="/" element={<Home />} />             
+          <Route path="/" element={user ? <Home /> : <Login />} />             
           <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="/register" element={user ? <Home /> : <Register />} />
           {/* <Route path="/post/:postId" element={<Single />} /> */}
