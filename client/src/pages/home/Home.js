@@ -19,109 +19,16 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 
-const sampleObjects = [
-    {
-      title: 'Sample Title 1',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      username: 'user1',
-    },
-    {
-      title: 'Sample Title 2',
-      content: 'Nulla facilisi. Curabitur ut leo nec arcu egestas bibendum.',
-      username: 'user2',
-    },
-    {
-      title: 'Sample Title 3',
-      content: 'Fusce eu risus ac nisi fringilla facilisis.',
-      username: 'user3',
-    },
-    {
-      title: 'Sample Title 4',
-      content: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-      username: 'user4',
-    },
-    {
-      title: 'Sample Title 5',
-      content: 'Aliquam convallis nisi eu felis dignissim, vel iaculis nisi pharetra.',
-      username: 'user5',
-    },
-    {
-      title: 'Sample Title 6',
-      content: 'Vivamus feugiat risus id orci tristique, sed tincidunt nulla vehicula.',
-      username: 'user6',
-    },
-    {
-      title: 'Sample Title 7',
-      content: 'Cras bibendum ipsum nec erat volutpat, at volutpat erat dictum.',
-      username: 'user7',
-    },
-    {
-      title: 'Sample Title 8',
-      content: 'Etiam eget elit nec justo tincidunt bibendum nec quis lorem.',
-      username: 'user8',
-    },
-    {
-      title: 'Sample Title 9',
-      content: 'In vestibulum tortor eget magna dignissim, in iaculis lorem sollicitudin.',
-      username: 'user9',
-    },
-    {
-      title: 'Sample Title 10',
-      content: 'Suspendisse at velit eu elit scelerisque interdum vel ac nisl.',
-      username: 'user10',
-    },
-    {
-      title: 'Sample Title 11',
-      content: 'Phasellus consectetur neque eget justo elementum fringilla.',
-      username: 'user11',
-    },
-    {
-      title: 'Sample Title 12',
-      content: 'Donec malesuada lectus eget convallis vehicula.',
-      username: 'user12',
-    },
-    {
-      title: 'Sample Title 13',
-      content: 'Aenean non lectus ut urna tincidunt egestas eu vel metus.',
-      username: 'user13',
-    },
-    {
-      title: 'Sample Title 14',
-      content: 'Sed vehicula nunc nec cursus. Sed commodo hendrerit libero.',
-      username: 'user14',
-    },
-    {
-      title: 'Sample Title 15',
-      content: 'Quisque dictum justo et urna laoreet, at consectetur ipsum feugiat.',
-      username: 'user15',
-    },
-    {
-      title: 'Sample Title 16',
-      content: 'Fusce ac felis ac urna iaculis sollicitudin ut at nisi.',
-      username: 'user16',
-    },
-    {
-      title: 'Sample Title 17',
-      content: 'Praesent vel odio a nisi auctor tincidunt id a justo.',
-      username: 'user17',
-    },
-    {
-      title: 'Sample Title 18',
-      content: 'Vestibulum id ligula vitae tortor cursus interdum eget a sapien.',
-      username: 'user18',
-    },
-    {
-      title: 'Sample Title 19',
-      content: 'Integer dapibus arcu in risus mattis, ac tempus lorem tempus.',
-      username: 'user19',
-    },
-    {
-      title: 'Sample Title 20',
-      content: 'Nam id odio vitae lectus rhoncus hendrerit sit amet non est.',
-      username: 'user20',
-    },
-  ];
-  
+const sampleObjects = [];
+
+  for (let i = 1; i <= 50; i++) {
+    sampleObjects.push({
+      title: 'Sample Title ' + (i + 1),
+      content: 'Sample content for object ' + (i + 1),
+      username: 'sample_user_' + (i + 1),
+      createdAt: '2023-03-' + (i + 1), // Assuming the date format stays the same
+    });
+  }
 
 let page = 1;
 const fetchData = (setItems, items) => {
