@@ -25,6 +25,7 @@ import {
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
  
 // profile menu component
@@ -182,6 +183,7 @@ function NavListMenu() {
     </React.Fragment>
   );
 }
+
  
 // nav list component
 const navListItems = [
@@ -190,8 +192,8 @@ const navListItems = [
     icon: UserCircleIcon,
   },
   {
-    label: "Blocks",
-    icon: CubeTransparentIcon,
+    label: "create",
+    icon: PlusCircleIcon,
   },
   {
     label: "Docs",

@@ -18,6 +18,13 @@ const profileSchema = new Schema({
   affiliation: {
     type: String,
   },
+  fullname: {
+    type: String,
+    maxlength: 100
+  },
+  avatar: {
+    type: String,
+  }
   // Add more fields as needed for the user profile
 });
 

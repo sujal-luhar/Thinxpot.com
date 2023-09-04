@@ -16,7 +16,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-  },
+  }
   // You can add more fields as needed for user profiles
   // For example, 'fullName', 'bio', 'avatar', etc.
 });
