@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import {
   Card,
   Input,
@@ -62,7 +63,7 @@ function Register() {
     //     </button>
     //   </form>
     // </div>
-    <Card color="transparent" className="flex items-center" style={{marginTop:'7vh'}} shadow={false}>
+    <Card color="transparent" className="flex items-center justify-center h-[80vh]" shadow={false}>
     <Typography variant="h3" color="blue-gray">
       Sign Up
     </Typography>
@@ -99,7 +100,7 @@ function Register() {
       <Typography color="gray" className="mt-4 text-center font-normal">
         Already have an account?{" "}
         <a href="#" className="font-medium text-gray-900">
-          Sign In
+        <Link to="/login">Sign In</Link>
         </a>
       </Typography>
     </form>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import {
   Navbar,
   MobileNav,
@@ -8,7 +9,7 @@ import {
   Card,
 } from "@material-tailwind/react";
  
-export default function MTNavbar() {
+export default function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
  
   React.useEffect(() => {
@@ -27,14 +28,14 @@ export default function MTNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          Register
+        <Link to="/register">Register</Link>
         </a>
       </Typography>
     </ul>
   );
  
   return (
-    <div className="-m-2 max-h-[768px] w-[calc(100%+8px)]">
+    <div className="max-h-[768px] w-screen">
       <Navbar className="sticky top-4 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
@@ -51,7 +52,7 @@ export default function MTNavbar() {
               size="sm"
               className="hidden lg:inline-block"
             >
-              <span>Sign In</span>
+              <span><Link to="/login">Sign In</Link></span>
             </Button>
             <IconButton
               variant="text"
@@ -95,7 +96,7 @@ export default function MTNavbar() {
         <MobileNav open={openNav}>
           {navList}
           <Button variant="gradient" size="sm" fullWidth className="mb-2">
-            <span>Sign In</span>
+          <span><Link to="/login">Sign In</Link></span>
           </Button>
         </MobileNav>
       </Navbar>
