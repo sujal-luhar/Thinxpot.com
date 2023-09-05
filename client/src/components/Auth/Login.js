@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import axios from 'axios';
+import { Link, Navigate  } from 'react-router-dom'
 import {
   Card,
   Input,
@@ -14,17 +15,12 @@ function Login() {
 
   const handleLogin = () => {
     // Make a POST request to your backend for login
-    fetch('/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
+    axios.post('/api/users/login', { email, password })
       .then((response) => {
         if (response.status === 200) {
           // Login was successful, you can redirect the user or update the UI
           console.log('Login successful');
+          <Navigate to="/" />
         } else {
           // Handle login error, show an error message, etc.
           console.error('Login failed');
@@ -65,8 +61,8 @@ function Login() {
     </Typography>
     <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
       <div className="mb-4 flex flex-col gap-6">
-        <Input size="lg" label="Email" />
-        <Input type="password" size="lg" label="Password" />
+        <Input size="lg" label="Email" onChange={(e) => setEmail(e.target.value)}/>
+        <Input type="password" size="lg" label="Password" onChange={(e) => setPassword(e.target.value)}/>
       </div>
       <Checkbox
         label={
@@ -86,7 +82,7 @@ function Login() {
         }
         containerProps={{ className: "-ml-2.5" }}
       />
-      <Button className="mt-6" fullWidth>
+      <Button className="mt-6" fullWidth onClick={handleLogin}> {/* onClick={handleLogin} */}
         Sign In
       </Button>
       <Typography color="gray" className="mt-4 text-center font-normal">

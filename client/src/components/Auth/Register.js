@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 import {
   Card,
@@ -9,19 +10,13 @@ import {
 } from "@material-tailwind/react";
 
 function Register() {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleRegister = () => {
     // Make a POST request to your backend for registration
-    fetch('/api/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, password }),
-    })
+    axios.post('/api/users/register', { username, email, password })
       .then((response) => {
         if (response.status === 201) {
           // Registration was successful, you can redirect the user or update the UI
@@ -72,9 +67,9 @@ function Register() {
     </Typography>
     <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
       <div className="mb-4 flex flex-col gap-6">
-        <Input size="lg" label="Name" />
-        <Input size="lg" label="Email" />
-        <Input type="password" size="lg" label="Password" />
+        <Input size="lg" label="Username" onChange={(e) => setName(e.target.value)}/>
+        <Input size="lg" label="Email" onChange={(e) => setEmail(e.target.value)}/>
+        <Input type="password" size="lg" label="Password" onChange={(e) => setPassword(e.target.value)}/>
       </div>
       <Checkbox
         label={
@@ -94,7 +89,7 @@ function Register() {
         }
         containerProps={{ className: "-ml-2.5" }}
       />
-      <Button className="mt-6" fullWidth>
+      <Button className="mt-6" fullWidth onClick={handleRegister}> {/* onClick={handleRegister} */}
         Register
       </Button>
       <Typography color="gray" className="mt-4 text-center font-normal">

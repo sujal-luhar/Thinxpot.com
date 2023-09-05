@@ -10,7 +10,7 @@ import PostDetail from './components/Posts/PostDetail';
 
 
 function App() {
-  var user = true
+  var user = false
 
   return (
     <div>
