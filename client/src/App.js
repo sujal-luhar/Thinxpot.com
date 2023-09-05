@@ -7,10 +7,11 @@ import Register from './components/Auth/Register';
 import NavbarIn from './components/Navbar/NavbarIn';
 import Home from './pages/home/Home';
 import PostDetail from './components/Posts/PostDetail';
+import UserProfile from './components/Profile/UserProfile';
 
 
 function App() {
-  var user = false
+  var user = true
 
   return (
     <div>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="/register" element={user ? <Home /> : <Register />} />
           <Route path="/post" element={user ? <PostDetail /> : <Login />} />
+          <Route path="/user/:userId" element={user ? <UserProfile /> : <Login />} />
           {/* <Route path="/post/:postId" element={<Single />} /> */}
           {/* <Route path="/write" element={user ? <Write /> : <Register />} /> */}
           {/* <Route path="/settings" element={user ? <Settings /> : <Register />} /> */}

@@ -8,19 +8,23 @@ const profileSchema = new Schema({
     unique: true,
     required: true,
   },
-  bio: {
+  fullname: {
     type: String,
-    maxlength: 500, // You can set a maximum length for the bio if needed
+    maxlength: 100
   },
-  website: {
+  location: {
     type: String,
+    maxlength: 100
   },
   affiliation: {
     type: String,
   },
-  fullname: {
+  website: {
     type: String,
-    maxlength: 100
+  },
+  bio: {
+    type: String,
+    maxlength: 500, // You can set a maximum length for the bio if needed
   },
   avatar: {
     type: String,
