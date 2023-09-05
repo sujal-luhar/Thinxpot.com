@@ -95,9 +95,11 @@ export default function StickyNavbar() {
         </div>
         <MobileNav open={openNav}>
           {navList}
-          <Button variant="gradient" size="sm" fullWidth className="mb-2">
-          <span><Link to="/login">Sign In</Link></span>
-          </Button>
+          <Link to="/login">
+            <Button variant="gradient" size="sm" fullWidth className="mb-2">
+            <span>Sign In</span>
+            </Button>
+          </Link>
         </MobileNav>
       </Navbar>
       {/* <div className="mx-auto max-w-screen-md py-12">
