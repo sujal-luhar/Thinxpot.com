@@ -38,7 +38,7 @@ function UserProfile({ userId }) {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative">
-                      <img alt="..." src="https://pbs.twimg.com/profile_images/1396348683424124928/kzyZonlB_400x400.jpg" className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
+                      <img alt="..." src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -90,7 +90,7 @@ function UserProfile({ userId }) {
                     </div>
                   </div>
                   <div className="flex w-full flex-col gap-4">
-                    <ButtonGroup className="fullwidth flex-wrap justify-center w-full gap-4" size="sm">
+                    <ButtonGroup className="fullwidth flex-wrap justify-center w-full" size="sm">
                       <Button className='w-40'>Papers</Button>
                       <Button className='w-40'>Followers</Button>
                       <Button className='w-40'>Following</Button>

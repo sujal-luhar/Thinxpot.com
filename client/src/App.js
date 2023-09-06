@@ -10,6 +10,8 @@ import PostDetail from './components/Posts/PostDetail';
 import UserProfile from './components/Profile/UserProfile';
 import ProfileCard from './pages/connect/ProfileCard';
 import EditProfile from './components/Profile/EditProfile';
+import PostSingle from './components/Posts/PostSingle';
+import CreatePost from './components/Posts/CreatePost';
 
 
 function App() {
@@ -23,7 +25,9 @@ function App() {
           <Route path="/" element={user ? <Home /> : <Login />} />             
           <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="/register" element={user ? <Home /> : <Register />} />
-          <Route path="/post" element={user ? <PostDetail /> : <Login />} />
+          <Route path="/post" element={user ? <PostSingle /> : <Login />} />
+          <Route path="/postdetail" element={user ? <PostDetail /> : <Login />} />
+          <Route path="/create" element={user ? <CreatePost  /> : <Login />} />
           <Route path="/user/:userId" element={user ? <UserProfile /> : <Login />} />
           <Route path="/connect" element={user ? <ProfileCard /> : <Login />} />
           <Route path="/edit" element={user ? <EditProfile /> : <Login />} />
