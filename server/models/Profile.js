@@ -19,7 +19,7 @@ const profileSchema = new Schema({
   affiliation: {
     type: String,
   },
-  website: {
+  education: {
     type: String,
   },
   bio: {

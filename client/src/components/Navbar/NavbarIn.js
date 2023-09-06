@@ -189,14 +189,17 @@ function NavListMenu() {
 const navListItems = [
   {
     label: "Connect",
+    link: "/connect",
     icon: UserCircleIcon,
   },
   {
     label: "create",
+    link: "/create",
     icon: PlusCircleIcon,
   },
   {
     label: "Docs",
+    link: "#",
     icon: CodeBracketSquareIcon,
   },
 ];
@@ -205,7 +208,7 @@ function NavList() {
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
-      {navListItems.map(({ label, icon }, key) => (
+      {navListItems.map(({ label, link, icon }, key) => (
         <Typography
           key={label}
           as="a"
@@ -214,10 +217,12 @@ function NavList() {
           color="blue-gray"
           className="font-normal"
         >
+          <Link to={link}>
           <MenuItem className="flex items-center gap-2 lg:rounded-full">
             {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
             {label}
           </MenuItem>
+          </Link>
         </Typography>
       ))}
     </ul>

@@ -8,10 +8,12 @@ import NavbarIn from './components/Navbar/NavbarIn';
 import Home from './pages/home/Home';
 import PostDetail from './components/Posts/PostDetail';
 import UserProfile from './components/Profile/UserProfile';
+import ProfileCard from './pages/connect/ProfileCard';
+import EditProfile from './components/Profile/EditProfile';
 
 
 function App() {
-  var user = true
+  const user = true
 
   return (
     <div>
@@ -23,6 +25,9 @@ function App() {
           <Route path="/register" element={user ? <Home /> : <Register />} />
           <Route path="/post" element={user ? <PostDetail /> : <Login />} />
           <Route path="/user/:userId" element={user ? <UserProfile /> : <Login />} />
+          <Route path="/connect" element={user ? <ProfileCard /> : <Login />} />
+          <Route path="/edit" element={user ? <EditProfile /> : <Login />} />
+
           {/* <Route path="/post/:postId" element={<Single />} /> */}
           {/* <Route path="/write" element={user ? <Write /> : <Register />} /> */}
           {/* <Route path="/settings" element={user ? <Settings /> : <Register />} /> */}
