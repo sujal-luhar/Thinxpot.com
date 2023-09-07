@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { Button, Textarea } from '@material-tailwind/react';
 
 function CommentForm({ postId }) {
-  const [text, setText] = useState('');
+  const [text, setComment] = useState('');
 
-  const handleSubmit = () => {
+  const handleComment = () => {
     // Add logic to send the new comment to your backend
     // Example API request:
     // fetch(`/api/posts/${postId}/comments`, {
@@ -22,14 +23,20 @@ function CommentForm({ postId }) {
   };
 
   return (
-    <div>
-      <h3>Add a Comment</h3>
-      <textarea
-        placeholder="Write a comment..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Submit</button>
+    // <div>
+    //   <h3>Add a Comment</h3>
+    //   <textarea
+    //     placeholder="Write a comment..."
+    //     value={text}
+    //     onChange={(e) => setText(e.target.value)}
+    //   />
+    //   <button onClick={handleSubmit}>Submit</button>
+    // </div>
+    <div className='my-6 block'>
+      <Textarea size="lg " label="Comment" onChange={(e) => setComment(e.target.value)} />
+      <Button className="float-right" onClick={handleComment}> {/* onClick={handleRegister} */}
+        Comment
+      </Button>
     </div>
   );
 }

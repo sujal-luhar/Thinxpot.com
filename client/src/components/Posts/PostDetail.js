@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import CommentForm from '../Comments/CommentForm';
+import CommentList from '../Comments/CommentList';
 
 function PostDetail({ postId }) {
   // const [post, setPost] = useState(null);
@@ -94,6 +96,10 @@ function PostDetail({ postId }) {
 
       </div>
       <hr className="border-gray-600"></hr>
+      <CommentForm />
+      <br/>
+      <hr className="border-gray-600"></hr>
+      <CommentList/>
     </div>
   );
 }
