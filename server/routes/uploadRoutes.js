@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/uploadMiddleware'); // Import the Multer middleware
+const upload = require('../middlewares/multer'); // Import the Multer middleware
 const userController = require('../controllers/userController');
 
 // Upload a research paper (example route)
