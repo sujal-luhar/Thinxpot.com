@@ -5,7 +5,7 @@ import {
   Input
 } from "@material-tailwind/react";
 
-export default function ProfileCard() {
+export default function ProfileFollowing() {
   const [search, setSearch] = useState('');
 
   const handleSearch = () => {
@@ -13,11 +13,14 @@ export default function ProfileCard() {
 
   return (
     <div className="flex flex-col">
-      {/* <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" /> */}
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+      <div class="mt-8 ">
+              <h2 class="text-white font-bold text-xl tracking-wide">@SujalLuhar is Following</h2>
+            </div>
 
       <form className="mx-32 flex font-medium items-center justify-center mt-8 mb-4 gap-3">
       <Input size="lg" label="Search by Name or Username" onChange={(e) => setSearch(e.target.value)} />

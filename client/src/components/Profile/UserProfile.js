@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonGroup, Button } from "@material-tailwind/react";
+import { ButtonGroup, Link, Button } from "@material-tailwind/react";
 import EditProfile from './EditProfile';
+import PostSingle from '../Posts/PostSingle';
 
 function UserProfile({ userId }) {
   const [userProfile, setUserProfile] = useState(null);
@@ -91,14 +92,22 @@ function UserProfile({ userId }) {
                       </p>
                     </div>
                   </div>
-                  <div className="flex w-full flex-col gap-4">
-                    <ButtonGroup className="fullwidth flex-wrap justify-center w-full gap-4" size="sm">
-                      <Button className='w-40'>Papers</Button>
-                      <Button className='w-40'>Followers</Button>
-                      <Button className='w-40'>Following</Button>
-                    </ButtonGroup>
+                  <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
+                    <div className="flex-wrap w-auto gap-4 flex justify-center">
+                      <Button  size="sm" className='w-40'>Papers</Button>
+                      <Button size="sm" className='w-40'>Followers</Button>
+                      <Button  size="sm" className='w-40'>Following</Button>
+                    </div>
                   </div>
                 </div>
+              </div>
+            <hr class="border-gray-400"></hr>
+              <div className="px-6">
+                <PostSingle/>
+                <PostSingle/>
+                <PostSingle/>
+                <PostSingle/>
+                <PostSingle/>
               </div>
             </div>
           </div>

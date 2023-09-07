@@ -12,6 +12,8 @@ import ProfileCard from './pages/connect/ProfileCard';
 import EditProfile from './components/Profile/EditProfile';
 import PostSingle from './components/Posts/PostSingle';
 import CreatePost from './components/Posts/CreatePost';
+import ProfileFollowers from './components/Profile/ProfileFollowers';
+import ProfileFollowing from './components/Profile/ProfileFollowing';
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/postdetail" element={user ? <PostDetail /> : <Login />} />
           <Route path="/create" element={user ? <CreatePost  /> : <Login />} />
           <Route path="/user/:userId" element={user ? <UserProfile /> : <Login />} />
+          <Route path="/user/:userId/Followers" element={user ? <ProfileFollowers /> : <Login />} />
+          <Route path="/user/:userId/Following" element={user ? <ProfileFollowing /> : <Login />} />
           <Route path="/connect" element={user ? <ProfileCard /> : <Login />} />
           <Route path="/edit" element={user ? <EditProfile /> : <Login />} />
 

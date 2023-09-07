@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PostDescription from './PostDescription';
 
 function PostSingle({ postId }) {
     // const [post, setPost] = useState(null);
@@ -33,7 +34,7 @@ function PostSingle({ postId }) {
                         </div>
                     </div>
                 </a>
-            </div>
+            </div> 
             <div class="pl-16">
                 <p class="font-sans tracking-wide text-lg subpixel-antialiased width-auto font-medium text-black flex-shrink">
                     I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.
@@ -44,6 +45,8 @@ function PostSingle({ postId }) {
                         Complex Variables (math.CV)
                     </span>
                 </div>
+
+                <PostDescription description="I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others."/>
 
                 <div class="flex">
                     <div class="w-full">

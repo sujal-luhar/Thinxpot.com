@@ -28,7 +28,7 @@ function CreatePost() {
     //     // Handle successful creation, e.g., redirect to the new post's page
     //   });
   };
-
+  
   return (
     <center>
         <form className="mt-28 mb-4 w-screen max-w-screen-lg sm:w-96">
@@ -38,7 +38,7 @@ function CreatePost() {
             </div>
 
             <Input size="lg" label="Give your paper a title" onChange={(e) => setTitle(e.target.value)} />
-            <Textarea size="lg" label="To which subject your paper is about" onChange={(e) => setSubject(e.target.value)} />
+            <Input size="lg" label="To which subject your paper is about" onChange={(e) => setSubject(e.target.value)} />
             <Textarea className='h-64' size="lg" label="Write about your paper in detail" onChange={(e) => setContent(e.target.value)} />
             <Input size="lg" label="Give pdf link of your paper " onChange={(e) => setPdf(e.target.value)} />
           </div>

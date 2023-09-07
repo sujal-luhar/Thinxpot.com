@@ -58,3 +58,13 @@ mongoose.connect('mongodb://localhost:27017/my_database').then(() =>{}).catch((e
     }
   }
 );
+
+
+
+// PRACTICE CODE
+// const express = require('express');
+// const app = express();
+
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
+// });

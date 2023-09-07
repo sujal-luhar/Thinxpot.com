@@ -211,11 +211,6 @@ const navListItems = [
     link: "/create",
     icon: PlusCircleIcon,
   },
-  {
-    label: "Docs",
-    link: "#",
-    icon: CodeBracketSquareIcon,
-  },
 ];
 
 function NavList() {
