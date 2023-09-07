@@ -18,8 +18,8 @@ export default function ProfileFollowing() {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-      <div class="mt-8 ">
-              <h2 class="text-white font-bold text-xl tracking-wide">@SujalLuhar is Following</h2>
+      <div class="mt-8 flex justify-center" style={{ fontFamily: "Montserrat" }}>
+              <h2 class="text-gray-800 font-bold text-xl tracking-wide">@SujalLuhar is Following ...</h2>
             </div>
 
       <form className="mx-32 flex font-medium items-center justify-center mt-8 mb-4 gap-3">

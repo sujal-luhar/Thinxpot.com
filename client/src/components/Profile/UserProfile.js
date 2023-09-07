@@ -95,8 +95,8 @@ function UserProfile({ userId }) {
                   <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
                     <div className="flex-wrap w-auto gap-4 flex justify-center">
                       <Button  size="sm" className='w-40'>Papers</Button>
-                      <Button size="sm" className='w-40'>Followers</Button>
-                      <Button  size="sm" className='w-40'>Following</Button>
+                      <a href='/user/:userId/Followers'><Button size="sm" className='w-40'>Followers</Button></a>
+                      <a href='/user/:userId/Following'><Button  size="sm" className='w-40'>Following</Button></a>
                     </div>
                   </div>
                 </div>
