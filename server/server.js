@@ -1,26 +1,17 @@
 const express = require("express");
-// const session = require('express-session');
 require("./config/db");
 const cors = require("cors");
-const bodyParser = require("body-parser"); // You might need to install this middleware
-// const passport = require('passport');
 const uploadRoutes = require("./routes/uploadRoutes");
+// const passport = require('passport');
 
 const app = express();
 
 // Define middleware
 app.use(express.json()); // Parse JSON request bodies
-app.use(cors()); // Enable CORS for all routes (you can configure this as needed)
-app.use(bodyParser.urlencoded({ extended: true })); // You might need this for form data parsing
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 app.use("/api/upload", uploadRoutes);
-// // Set up Express sessions
-// app.use(
-//   session({
-//     secret: 'your-secret-key', // Replace with your session secret
-//     resave: false,
-//     saveUninitialized: true,
-//   })
-// );
+
 // // Initialize Passport
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -29,7 +20,6 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/upload", require("./routes/uploadRoutes"));
 app.use("/api/posts", require("./routes/postRoutes"));
-app.use("/api/profiles", require("./routes/profileRoutes"));
 app.use("/api/likes", require("./routes/likeRoutes"));
 app.use("/api/follows", require("./routes/followRoutes"));
 app.use("/api/comments", require("./routes/commentRoutes"));
@@ -46,11 +36,3 @@ const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}. http://localhost:${PORT}`);
 });
-
-// PRACTICE CODE
-// const express = require('express');
-// const app = express();
-
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });

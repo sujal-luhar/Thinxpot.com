@@ -1,11 +1,11 @@
 // uploadRoutes.js
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const upload = require('../middlewares/multer'); // Import the Multer middleware
-const userController = require('../controllers/userController');
+const upload = require("../middlewares/multer"); // Import the Multer middleware
+const userController = require("../controllers/userController");
 
 // Upload a research paper (example route)
-router.post('/upload', upload.single('researchPaper'), userController.uploadResearchPaper);
+// router.post('/upload', upload.single('researchPaper'), userController.uploadResearchPaper);
 
 module.exports = router;

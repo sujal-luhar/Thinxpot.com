@@ -1,4 +1,4 @@
-const Like = require('../models/Like'); // Import the Like model
+const Like = require("../models/like"); // Import the Like model
 
 // Controller function to create a new like
 exports.createLike = (req, res) => {
@@ -9,12 +9,14 @@ exports.createLike = (req, res) => {
   Like.findOne({ user, post }, (err, existingLike) => {
     if (err) {
       // Handle the error
-      return res.status(500).json({ error: 'Server error' });
+      return res.status(500).json({ error: "Server error" });
     }
 
     if (existingLike) {
       // User has already liked this post
-      return res.status(400).json({ error: 'User has already liked this post' });
+      return res
+        .status(400)
+        .json({ error: "User has already liked this post" });
     }
 
     // Create a new Like instance
@@ -27,11 +29,13 @@ exports.createLike = (req, res) => {
     newLike.save((err, like) => {
       if (err) {
         // Handle the error
-        return res.status(400).json({ error: 'Failed to create like', details: err.message });
+        return res
+          .status(400)
+          .json({ error: "Failed to create like", details: err.message });
       }
 
       // Like created successfully, send a response
-      res.status(201).json({ message: 'Like created successfully', like });
+      res.status(201).json({ message: "Like created successfully", like });
     });
   });
 };
@@ -45,16 +49,16 @@ exports.removeLike = (req, res) => {
   Like.findOneAndDelete({ user, post }, (err, deletedLike) => {
     if (err) {
       // Handle the error
-      return res.status(500).json({ error: 'Server error' });
+      return res.status(500).json({ error: "Server error" });
     }
 
     if (!deletedLike) {
       // Like not found
-      return res.status(404).json({ error: 'Like not found' });
+      return res.status(404).json({ error: "Like not found" });
     }
 
     // Like removed successfully, send a response
-    res.status(200).json({ message: 'Like removed successfully' });
+    res.status(200).json({ message: "Like removed successfully" });
   });
 };
 
@@ -67,7 +71,7 @@ exports.getLikesForPost = (req, res) => {
   Like.find({ post: postId }, (err, likes) => {
     if (err) {
       // Handle the error
-      return res.status(500).json({ error: 'Server error' });
+      return res.status(500).json({ error: "Server error" });
     }
 
     // Send the list of likes as a response

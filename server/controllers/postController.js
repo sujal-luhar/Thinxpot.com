@@ -1,4 +1,4 @@
-const Post = require('../models/Post'); // Import the Post model
+const Post = require("../models/post"); // Import the Post model
 
 // Controller function to create a new post
 exports.createPost = (req, res) => {
@@ -16,11 +16,13 @@ exports.createPost = (req, res) => {
   newPost.save((err, post) => {
     if (err) {
       // Handle the error
-      return res.status(400).json({ error: 'Failed to create post', details: err.message });
+      return res
+        .status(400)
+        .json({ error: "Failed to create post", details: err.message });
     }
 
     // Post created successfully, send a response
-    res.status(201).json({ message: 'Post created successfully', post });
+    res.status(201).json({ message: "Post created successfully", post });
   });
 };
 
@@ -29,7 +31,7 @@ exports.getAllPosts = (req, res) => {
   Post.find({}, (err, posts) => {
     if (err) {
       // Handle the error
-      return res.status(500).json({ error: 'Server error' });
+      return res.status(500).json({ error: "Server error" });
     }
 
     // Send the list of posts as a response

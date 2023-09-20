@@ -2,8 +2,7 @@ const passport = require("passport");
 const passportJWT = require("passport-jwt");
 const JWT_SECRET = "thisIsSecretDontTellAnyOne";
 const EXPIRESIN = "3600s";
-
-const userModel = require("../models/User");
+const userModel = require("../models/user");
 
 const jwtStretegy = passportJWT.Strategy;
 const extractJWT = passportJWT.ExtractJwt;

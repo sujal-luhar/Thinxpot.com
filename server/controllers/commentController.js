@@ -1,4 +1,4 @@
-const Comment = require('../models/Comment'); // Import the Comment model
+const Comment = require("../models/comment"); // Import the Comment model
 
 // Controller function to create a new comment
 exports.createComment = (req, res) => {
@@ -9,18 +9,20 @@ exports.createComment = (req, res) => {
   const newComment = new Comment({
     text,
     author, // User's ObjectId who authored the comment
-    post,   // Post's ObjectId to which the comment belongs
+    post, // Post's ObjectId to which the comment belongs
   });
 
   // Save the comment to the database
   newComment.save((err, comment) => {
     if (err) {
       // Handle the error
-      return res.status(400).json({ error: 'Failed to create comment', details: err.message });
+      return res
+        .status(400)
+        .json({ error: "Failed to create comment", details: err.message });
     }
 
     // Comment created successfully, send a response
-    res.status(201).json({ message: 'Comment created successfully', comment });
+    res.status(201).json({ message: "Comment created successfully", comment });
   });
 };
 
@@ -33,7 +35,7 @@ exports.getCommentsForPost = (req, res) => {
   Comment.find({ post: postId }, (err, comments) => {
     if (err) {
       // Handle the error
-      return res.status(500).json({ error: 'Server error' });
+      return res.status(500).json({ error: "Server error" });
     }
 
     // Send the list of comments as a response
