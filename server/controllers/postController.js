@@ -1,7 +1,7 @@
 const Post = require("../models/post");
 
 exports.createPost = async (req, res) => {
-  const { title, subject, content, pdfLink, author } = req.body;
+  const { title, subject, content, pdfLink, authorId } = req.body;
 
   // Create a new Post instance
   const newPost = new Post({
@@ -9,7 +9,7 @@ exports.createPost = async (req, res) => {
     subject,
     content,
     pdfLink,
-    author, // User's ObjectId who authored the post
+    authorId, // User's ObjectId who authored the post
   });
 
   try {
@@ -26,13 +26,24 @@ exports.createPost = async (req, res) => {
 };
 
 exports.getAllPosts = (req, res) => {
-  Post.find({}, (err, posts) => {
-    if (err) {
-      return res.status(500).json({ error: "Server error" });
-    }
-
+  try {
+    const posts = Post.find()
     res.status(200).json(posts);
-  });
+  }
+  catch (err) {
+    return res.status(500).json({ error: "Server error" });
+  }
+}
+
+exports.getSinglePosts = async (req, res) => {
+  const postId = req.params.id
+  try {
+    const post = Post.find({ _id: postId })
+    res.status(200).json(post);
+  }
+  catch (err) {
+    return res.status(500).json({ error: "Server error" });
+  }
 };
 
 // Add more controller functions for updating and deleting posts as needed

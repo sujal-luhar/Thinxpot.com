@@ -82,18 +82,19 @@ import {
   Button
 } from "@material-tailwind/react";
 import axios from 'axios'; // Import Axios
+import { redirect } from 'react-router-dom';
 
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
   const [content, setContent] = useState('');
   const [pdfLink, setPdf] = useState('');
-  const [author, setAuthor] = useState('sujal@gmail.com');
+  const [authorId, setAuthor] = useState('64f7173ecaa7ceedd35b3872');
 
 
   const handleCreate = async () => {
     // Check if any of the required fields are empty
-    if (!title || !subject || !content || !pdfLink || !author) {
+    if (!title || !subject || !content || !pdfLink || !authorId) {
       alert("Please fill in all the required fields.");
       return;
     }
@@ -104,7 +105,7 @@ function CreatePost() {
       subject,
       content,
       pdfLink,
-      author,
+      authorId,
     };
 
     await axios.post('/api/posts/create', {
@@ -112,10 +113,11 @@ function CreatePost() {
       subject,
       content,
       pdfLink,
-      author
+      authorId
     })
       .then((response) => {
         console.log('Post created successfully', response.data);
+        alert('Post created successfully')
 
         setTitle('');
         setSubject('');

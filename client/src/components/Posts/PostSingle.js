@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import PostDescription from './PostDescription';
 
 function PostSingle({ postId }) {
-    // const [post, setPost] = useState(null);
+    const [post, setPost] = useState(null);
 
-    // useEffect(() => {
-    //   // Fetch the specific post by postId from your backend API
-    //   // Example API request:
-    //   // fetch(`/api/posts/${postId}`)
-    //   //   .then(response => response.json())
-    //   //   .then(data => setPost(data));
-    // }, [postId]);
+    useEffect(() => {
+    //   Fetch the specific post by postId from your backend API
+    //   Example API request:
+      fetch(`/api/posts/${postId}`)
+        .then(response => response.json())
+        .then(data => setPost(data));
+    }, [postId]);
 
-    // if (!post) {
-    //   return <div>Loading...</div>;
-    // }
+    if (!post) {
+      return <div>Loading...</div>;
+    }
 
     return (
         <div className='pl-64 pr-64'>
@@ -36,17 +36,24 @@ function PostSingle({ postId }) {
                 </a>
             </div> 
             <div class="pl-16">
-                <p class="font-sans tracking-wide text-lg subpixel-antialiased width-auto font-medium text-black flex-shrink">
+                {/* <p class="font-sans tracking-wide text-lg subpixel-antialiased width-auto font-medium text-black flex-shrink">
                     I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.
+                </p> */}
+                <p class="font-sans tracking-wide text-lg subpixel-antialiased width-auto font-medium text-black flex-shrink">
+                    {post.title}
                 </p>
                 <div className="flex align-middle">
                     <span className=' text-gray-600 text-4xl'>&middot;</span>
-                    <span className="text-sm text leading-5 mt-3 font-medium text-gray-600 group-hover:text-gray-500 transition ease-in-out duration-150">
+                    {/* <span className="text-sm text leading-5 mt-3 font-medium text-gray-600 group-hover:text-gray-500 transition ease-in-out duration-150">
                         Complex Variables (math.CV)
+                    </span> */}
+                    <span className="text-sm text leading-5 mt-3 font-medium text-gray-600 group-hover:text-gray-500 transition ease-in-out duration-150">
+                        {post.subject}
                     </span>
                 </div>
 
-                <PostDescription description="I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others."/>
+                {/* <PostDescription description="I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others.I am very excited build this plateform for educational purpose. Here you can share your knowledge and experience with others. People in academics area can share their research and knowledge with others."/> */}
+                <PostDescription description='{post.content}'/>
 
                 <div class="flex">
                     <div class="w-full">
