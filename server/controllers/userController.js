@@ -114,4 +114,13 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login, verifyEmail };
+const logout = (req, res) => {
+  // Clear any authentication-related data (e.g., JWT tokens or session data)
+  // For example, if you're using JWT tokens, you can invalidate the token on the client-side by deleting it from local storage.
+  // You may also clear any session data if you're using sessions.
+
+  // Redirect the user to the login page or another appropriate page
+  res.redirect('/login');
+};
+
+module.exports = { register, login, verifyEmail, logout };

@@ -5,6 +5,7 @@ import PostSingle from '../Posts/PostSingle';
 
 function UserProfile({ userId }) {
   const [userProfile, setUserProfile] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     // Fetch the user's profile data by userId from your backend API
@@ -17,6 +18,10 @@ function UserProfile({ userId }) {
   // if (!userProfile) {
   //   return <div>Loading...</div>;
   // }
+
+  const handleToggle = () => {
+    setIsFollowing(!isFollowing); // Toggle the state
+  };
 
   return (
     <div>
@@ -45,8 +50,8 @@ function UserProfile({ userId }) {
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
-                      <Button className="bg-black hover:bg-gray-900 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                        Follow
+                      <Button className="bg-black hover:bg-gray-900 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button" onClick={handleToggle}>
+                        {isFollowing ? 'Unfollow' : 'Follow'}
                       </Button>
                       <EditProfile/>
                     </div>
@@ -94,7 +99,6 @@ function UserProfile({ userId }) {
                   </div>
                   <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
                     <div className="flex-wrap w-auto gap-4 flex justify-center">
-                      <Button  size="sm" className='w-40'>Papers</Button>
                       <a href='/user/:userId/Followers'><Button size="sm" className='w-40'>Followers</Button></a>
                       <a href='/user/:userId/Following'><Button  size="sm" className='w-40'>Following</Button></a>
                     </div>
