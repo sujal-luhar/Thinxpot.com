@@ -8,14 +8,20 @@ const { sendEmail } = require("../utils/mail");
 // Controller function for user registration
 const register = async (req, res) => {
   try {
-    const { username, email, password, first_name, last_name, address } =
+    const { first_name, last_name, username, email, password, confirm_password } =
       req.body;
     if (
-      !(username && email && password && first_name && last_name && address)
+      !(username && email && password && first_name && last_name && confirm_password)
     ) {
       return res.status(400).json({
         message:
           "Bad request. Please provide necessary details for registration",
+      });
+    }
+    else if (password.length < 8 || password !== confirm_password) {
+      return res.status(400).json({
+        message:
+          "Password should be atleast 8 characters long and should match with confirm password",
       });
     }
     const checkIfAlreadyExists = await userModel.findOne({ email: email });
@@ -27,7 +33,7 @@ const register = async (req, res) => {
     const hashedPassword = await hashPassword(password);
 
     const token = crypto.randomBytes(32).toString("hex");
-    const tokenExpiration = new Date(Date.now() + 10 * 60 * 1000);
+    const tokenExpiration = new Date(Date.now() + 60 * 60 * 1000);
     const verificationLink = `http://localhost:5000/user/verify?email=${email}?token=${token}`;
     const emailContent = `Click on this link to verify your email: ${verificationLink}`;
     //send verification link before this threw email to verify user by OTP.
@@ -38,13 +44,13 @@ const register = async (req, res) => {
       username: username,
       email: email,
       password: hashedPassword,
-      address: address,
+      // address: address,
       verfication_token: token,
       verfication_token_expires: tokenExpiration,
     });
     return res.status(201).json({ message: "User registered" });
   } catch (error) {
-    return res.status(500).json({ message: "Oops! something went wrong" });
+    return res.status(500).json({ message: "Oops! something went wrong   "+error });
   }
 };
 
@@ -123,4 +129,9 @@ const logout = (req, res) => {
   res.redirect('/login');
 };
 
-module.exports = { register, login, verifyEmail, logout };
+const edit = (req, res) => {
+  // Edit user profile
+
+}
+
+module.exports = { register, login, verifyEmail, logout, edit };

@@ -17,7 +17,7 @@ import ProfileFollowing from "./components/Profile/ProfileFollowing";
 import PostList from "./components/Posts/PostList";
 
 function App() {
-  const user = true;
+  const user = false;
 
   return (
     <div>
