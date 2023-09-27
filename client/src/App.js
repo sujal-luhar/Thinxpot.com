@@ -5,7 +5,7 @@ import StickyNavbar from "./components/Navbar/Navbar";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import NavbarIn from "./components/Navbar/NavbarIn";
-import Home from "./pages/home/Home";
+import Home from "./components/home/Home";
 import PostDetail from "./components/Posts/PostDetail";
 import UserProfile from "./components/Profile/UserProfile";
 import ProfileCard from "./pages/connect/ProfileCard";
@@ -14,6 +14,7 @@ import PostSingle from "./components/Posts/PostSingle";
 import CreatePost from "./components/Posts/CreatePost";
 import ProfileFollowers from "./components/Profile/ProfileFollowers";
 import ProfileFollowing from "./components/Profile/ProfileFollowing";
+import PostList from "./components/Posts/PostList";
 
 function App() {
   const user = true;
@@ -30,6 +31,10 @@ function App() {
           <Route
             path="/postdetail"
             element={user ? <PostDetail /> : <Login />}
+          />
+          <Route
+            path="/postlist"
+            element={user ? <PostList /> : <Login />}
           />
           <Route path="/create" element={user ? <CreatePost /> : <Login />} />
           <Route

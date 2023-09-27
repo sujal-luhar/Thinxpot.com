@@ -1,24 +1,28 @@
 const Post = require("../models/post");
 
-exports.createPost = (req, res) => {
-  const { title, content, author } = req.body;
+exports.createPost = async (req, res) => {
+  const { title, subject, content, pdfLink, author } = req.body;
 
   // Create a new Post instance
   const newPost = new Post({
     title,
+    subject,
     content,
+    pdfLink,
     author, // User's ObjectId who authored the post
   });
 
-  newPost.save((err, post) => {
-    if (err) {
-      return res
-        .status(400)
-        .json({ error: "Failed to create post", details: err.message });
-    }
+  try {
+    const post = await newPost.save();
 
     res.status(201).json({ message: "Post created successfully", post });
-  });
+  }
+  catch (err) {
+    return res
+      .status(400)
+      .json({ error: "Failed to create post", details: err.message });
+  }
+
 };
 
 exports.getAllPosts = (req, res) => {
