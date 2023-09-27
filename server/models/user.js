@@ -26,16 +26,19 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    address: {
-      type: String,
-    },
-    profile: {
+    affiliation: {
       type: String,
     },
     education: {
       type: String,
     },
     bio: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    profile: {
       type: String,
     },
     location: {

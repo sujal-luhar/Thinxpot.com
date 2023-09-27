@@ -10,28 +10,57 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import axios from 'axios';
 
 function EditProfile({ userId }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  userId = '65142f79b7842cf7f018dd7a'
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
   const [location, setLocation] = useState('');
-  const [bio, setBio] = useState('');
   const [affiliation, setAffiliation] = useState('');
   const [education, setEducation] = useState('');
+  const [bio, setBio] = useState('');
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
+    // Check if any of the required fields are empty
+    if (!first_name || !last_name || !location || !affiliation || !education || !bio) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
     // Add logic to send updated profile data to your backend
     // Example API request:
-    // fetch(`/api/profiles/${userId}`, {
+    await axios.put(`/api/users/${userId}/editprofile`, {
+      first_name,
+      last_name,
+      location,
+      affiliation,
+      education,
+      bio
+    })
+      .then((response) => {
+        console.log('Profile updated successfully', response.data);
+        alert('Profile updated successfully')
+
+        setFirstName('');
+        setLastName('');
+        setLocation('');
+        setAffiliation('');
+        setEducation('');
+        setBio('');
+      })
+      .catch((error) => console.error(error));
+
+
+    // fetch(`/api/users/${userId}/editprofile`, {
     //   method: 'PUT',
     //   headers: {
     //     'Content-Type': 'application/json',
     //   },
-    //   body: JSON.stringify({ name, email }),
+    //   body: JSON.stringify(userData),
     // })
     //   .then(response => response.json())
     //   .then(data => {
@@ -66,7 +95,8 @@ function EditProfile({ userId }) {
 
               <input id="avatarUpload" type="file" style={{ display: "none" }} />
 
-              <Input size="lg" label="Fullname" onChange={(e) => setName(e.target.value)} />
+              <Input size="lg" label="Firstname" onChange={(e) => setFirstName(e.target.value)} />
+              <Input size="lg" label="Lastname" onChange={(e) => setLastName(e.target.value)} />
               <Input size="lg" label="Location" onChange={(e) => setLocation(e.target.value)} />
               <Input size="lg" label="Affiliation" onChange={(e) => setAffiliation(e.target.value)} />
               <Input size="lg" label="Education" onChange={(e) => setEducation(e.target.value)} />

@@ -17,7 +17,7 @@ import ProfileFollowing from "./components/Profile/ProfileFollowing";
 import PostList from "./components/Posts/PostList";
 
 function App() {
-  const user = false;
+  const user = true;
 
   return (
     <div>
@@ -50,7 +50,7 @@ function App() {
             element={user ? <ProfileFollowing /> : <Login />}
           />
           <Route path="/connect" element={user ? <ProfileCard /> : <Login />} />
-          <Route path="/edit" element={user ? <EditProfile /> : <Login />} />
+          <Route path="/edit" element={user ? <EditProfile userId='64f7173ecaa7ceedd35b3872' /> : <Login />} />
 
           {/* <Route path="/post/:postId" element={<Single />} /> */}
           {/* <Route path="/write" element={user ? <Write /> : <Register />} /> */}

@@ -13,7 +13,7 @@ router.post("/register", register);
 router.get("/verify", verifyEmail);
 router.post("/login", login);
 router.get('/logout', logout);
-router.post('/editprofile', edit);
+router.put('/:userId/editprofile', edit);
 // Add more routes and controllers as needed
 
 module.exports = router;

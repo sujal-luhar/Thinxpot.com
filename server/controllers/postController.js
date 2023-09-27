@@ -1,9 +1,9 @@
 const Post = require("../models/post");
 
-exports.createPost = async (req, res) => {
+exports. createPost = async (req, res) => {
   const { title, subject, content, pdfLink, authorId } = req.body;
 
-  // Create a new Post instance
+  // Create a new Post instance 
   const newPost = new Post({
     title,
     subject,

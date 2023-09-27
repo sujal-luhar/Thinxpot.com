@@ -50,7 +50,7 @@ const register = async (req, res) => {
     });
     return res.status(201).json({ message: "User registered" });
   } catch (error) {
-    return res.status(500).json({ message: "Oops! something went wrong   "+error });
+    return res.status(500).json({ message: "Oops! something went wrong   " + error });
   }
 };
 
@@ -98,22 +98,19 @@ const login = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      // User not found
       return res.status(404).json({ message: "User not found" });
     }
-    if (!user.isVerified) {
-      return res.status(400).json({
-        message:
-          "Oops! Your email is not verified yet, please verify your email",
-      });
-    }
+    // if (!user.isVerified) {
+    //   return res.status(400).json({
+    //     message:
+    //       "Oops! Your email is not verified yet, please verify your email",
+    //   });
+    // }
     const checkPassword = await comparePassword(password, user["password"]);
     if (!checkPassword) {
       return res.status(401).json({ message: "Oops! wrong password entered." });
     }
-    // Generate a JWT token for authentication (if using JWT)
     const token = await generateToken(user._id);
-    // Successful login, send the token as a response,
     res.status(200).json({ message: "Login successful", token: token });
   } catch (err) {
     return res.status(500).json({ error: "Server error" });
@@ -129,8 +126,38 @@ const logout = (req, res) => {
   res.redirect('/login');
 };
 
-const edit = (req, res) => {
-  // Edit user profile
+const edit = async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    location,
+    affiliation,
+    education,
+    bio,
+  } = req.body;
+
+  // Create a new Post instance 
+
+  try {
+    const newUserData = await User.findByIdAndUpdate( req.params.userId , {
+      $set: {
+        first_name,
+        last_name,
+        location,
+        affiliation,
+        education,
+        bio // User's ObjectId who authored the post
+      }
+    });
+    res.status(201).json({ message: "User updated successfully", newUserData });
+
+  }
+  catch (err) {
+    return res
+      .status(400)
+      .json({ error: "Failed to update user", details: err.message });
+  }
+
 
 }
 

@@ -32,26 +32,6 @@ function Login() {
   };
 
   return (
-    // <div>
-    //   <h2>Login</h2>
-    //   <form>
-    //     <input
-    //       type="email"
-    //       placeholder="Email"
-    //       value={email}
-    //       onChange={(e) => setEmail(e.target.value)}
-    //     />
-    //     <input
-    //       type="password"
-    //       placeholder="Password"
-    //       value={password}
-    //       onChange={(e) => setPassword(e.target.value)}
-    //     />
-    //     <button type="button" onClick={handleLogin}>
-    //       Login
-    //     </button>
-    //   </form>
-    // </div>
     <Card color="transparent" className="flex items-center justify-center h-[80vh]" shadow={false}>
     <Typography variant="h3" color="blue-gray">
       Sign In
