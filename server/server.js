@@ -9,10 +9,10 @@ const passport = require('passport');
 const app = express();
 
 // Set up middleware
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded request bodies
-app.use(bodyParser.json()); // Parse JSON request bodies
-app.use(cors()); // Enable CORS for cross-origin requests
-app.use(passport.initialize()); // Initialize Passport for authentication
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
+app.use(cors()); 
+app.use(passport.initialize());
 
 // Connect to MongoDB using Mongoose
 mongoose
@@ -31,7 +31,7 @@ mongoose
 
 // Define your API routes
 app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/upload", require("./routes/uploadRoutes"));
+app.use("/api/upload", require("./routes/uploadRoutes")); // to upload avatar may be !!!
 app.use("/api/posts", require("./routes/postRoutes"));
 app.use("/api/likes", require("./routes/likeRoutes"));
 app.use("/api/follows", require("./routes/followRoutes"));

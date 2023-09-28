@@ -19,15 +19,15 @@ import Connect from "./components/connect/Connect";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
-  const user = false ;
+  const user = false;
 
   return (
     <div>
       <Router>
         {/* {user ? <NavbarIn /> : <StickyNavbar />} */}
         <Routes>
-          <Route element={<PrivateRoutes/>}>
-          <Route path="/" element={<Home />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Home />} />
             <Route path="/post" element={<PostSingle />} />
             <Route path="/postdetail/:postId" element={<PostDetail />} />
             <Route path="/postlist" element={<PostList />} />
