@@ -1,6 +1,6 @@
 const Post = require("../models/post");
 
-exports. createPost = async (req, res) => {
+exports.createPost = async (req, res) => {
   const { title, subject, content, pdfLink, authorId } = req.body;
 
   // Create a new Post instance 
@@ -25,20 +25,20 @@ exports. createPost = async (req, res) => {
 
 };
 
-exports.getAllPosts = (req, res) => {
+exports.getAllPosts = async (req, res) => {
   try {
-    const posts = Post.find()
+    const posts = await Post.find().sort({ createdAt : -1 })
     res.status(200).json(posts);
   }
   catch (err) {
-    return res.status(500).json({ error: "Server error" });
-  }
+    return res.status(500).json({ error: err, details: err.message });
+  } 
 }
 
 exports.getSinglePosts = async (req, res) => {
   const postId = req.params.id
   try {
-    const post = Post.find({ _id: postId })
+    const post = await Post.findOne({ _id: postId })
     res.status(200).json(post);
   }
   catch (err) {

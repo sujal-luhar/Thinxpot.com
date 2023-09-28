@@ -6,11 +6,7 @@ import {
 } from "@material-tailwind/react";
 
 export default function ProfileCard() {
-  const [search, setSearch] = useState('');
-
-  const handleSearch = () => {
-  };
-
+  //handling user fetching
   return (
     <div className="flex flex-col">
       {/* <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" /> */}
@@ -18,13 +14,6 @@ export default function ProfileCard() {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-      <form className="mx-32 flex font-medium items-center justify-center mt-8 mb-4 gap-3">
-      <Input size="lg" label="Search by Name or Username" onChange={(e) => setSearch(e.target.value)} />
-      <Button ripple={false} onClick={handleSearch}>
-            Search
-          </Button>
-      </form>
 
       <section style={{ fontFamily: "Montserrat" }} class="flex font-medium items-center justify-center mt-8 mb-4">
         <section class="w-auto flex-row flex mx-auto bg-[#20354b] rounded-2xl px-8 py-6 shadow-lg">

@@ -1,74 +1,26 @@
-// import React, { useEffect, useState } from 'react';
-
-// function PostList() {
-//   const [posts, setPosts] = useState([]);
-
-//   useEffect(() => {
-//     // Fetch posts from your backend API
-//     // Example API request:
-//     // fetch('/api/posts')
-//     //   .then(response => response.json())
-//     //   .then(data => setPosts(data));
-//   }, []);
-
-//   return (
-//     <div>
-//       <h2>Post List</h2>
-//       <ul>
-//         {posts.map((post) => (
-//           <li key={post._id}>{post.title}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-// export default PostList;
-
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import PostSingle from './PostSingle';
 
 function PostList() {
-  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
 
-  // Function to fetch more posts (you'll need to implement this)
-  const fetchMorePosts = async () => {
-    if (!loading) {
-      setLoading(true);
-
-      // Make an API request to fetch more posts
-      try {
-        await fetch(`/api/posts/all`)
-          .then(response => response.json())
-          // .then(data => setPosts((prevPosts) => [...prevPosts, ...data]));
-          .then(data => setPosts(data));
-           // Append new posts to the existing ones
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-
-      setLoading(false);
-    }
-
-  }
-  // Use useEffect to trigger fetchMorePosts when the user scrolls near the bottom
   useEffect(() => {
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY;
+    if (!loading) {
+            setLoading(true);
+    
+    // Fetch data from the server when the component mounts
+    axios.get('/api/posts/all') // Replace with your API endpoint
+      .then((response) => {
+        setPosts(response.data); // Update the state with the retrieved data
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+      setLoading(false);
 
-      if (windowHeight + scrollTop >= documentHeight - 200) {
-        fetchMorePosts();
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
 
   return (
@@ -79,7 +31,7 @@ function PostList() {
       {loading && <div>Loading...</div>}
     </div>
   );
-};
-
+}
 
 export default PostList;
+

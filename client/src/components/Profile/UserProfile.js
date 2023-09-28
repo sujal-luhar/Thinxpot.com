@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ButtonGroup, Link, Button } from "@material-tailwind/react";
 import EditProfile from './EditProfile';
 import PostSingle from '../Posts/PostSingle';
+import PostList from '../Posts/PostList';
 
 function UserProfile({ userId }) {
   const [userProfile, setUserProfile] = useState(null);
@@ -53,27 +54,30 @@ function UserProfile({ userId }) {
                       <Button className="bg-black hover:bg-gray-900 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button" onClick={handleToggle}>
                         {isFollowing ? 'Unfollow' : 'Follow'}
                       </Button>
-                      <EditProfile/>
+                      <EditProfile />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span className="text-sm text-blueGray-400">Followers</span>
+                      <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span className="text-sm text-blueGray-400">Followers</span>
+                        </div>
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span className="text-sm text-blueGray-400">Papers</span>
+                        </div>
+                        <div className="lg:mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">89</span><span className="text-sm text-blueGray-400">Comments</span>
+                        </div>
                       </div>
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span className="text-sm text-blueGray-400">Papers</span>
-                      </div>
-                      <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">89</span><span className="text-sm text-blueGray-400">Comments</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
+                  <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-0.25">
                     Sujal Luhar
                   </h3>
+                  <div className='text-blueGray-400 mb-4'>
+                    @SujalLuhar
+                  </div>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
                     Los Angeles, California
@@ -99,19 +103,16 @@ function UserProfile({ userId }) {
                   </div>
                   <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
                     <div className="flex-wrap w-auto gap-4 flex justify-center">
+                    <a href='/user/:userId/Likes'><Button size="sm" className='w-40'>Likes</Button></a>
                       <a href='/user/:userId/Followers'><Button size="sm" className='w-40'>Followers</Button></a>
-                      <a href='/user/:userId/Following'><Button  size="sm" className='w-40'>Following</Button></a>
+                      <a href='/user/:userId/Following'><Button size="sm" className='w-40'>Following</Button></a>
                     </div>
                   </div>
                 </div>
               </div>
-            <hr class="border-gray-400"></hr>
+              <hr class="border-gray-400"></hr>
               <div className="px-6">
-                <PostSingle/>
-                <PostSingle/>
-                <PostSingle/>
-                <PostSingle/>
-                <PostSingle/>
+                <PostList />
               </div>
             </div>
           </div>

@@ -8,16 +8,17 @@ import NavbarIn from "./components/Navbar/NavbarIn";
 import Home from "./components/home/Home";
 import PostDetail from "./components/Posts/PostDetail";
 import UserProfile from "./components/Profile/UserProfile";
-import ProfileCard from "./pages/connect/ProfileCard";
 import EditProfile from "./components/Profile/EditProfile";
 import PostSingle from "./components/Posts/PostSingle";
 import CreatePost from "./components/Posts/CreatePost";
 import ProfileFollowers from "./components/Profile/ProfileFollowers";
 import ProfileFollowing from "./components/Profile/ProfileFollowing";
 import PostList from "./components/Posts/PostList";
+import ProfileLikes from "./components/Profile/ProfileLikes";
+import Connect from "./components/connect/Connect";
 
 function App() {
-  const user = true;
+  const user = true ;
 
   return (
     <div>
@@ -29,7 +30,7 @@ function App() {
           <Route path="/register" element={user ? <Home /> : <Register />} />
           <Route path="/post" element={user ? <PostSingle /> : <Login />} />
           <Route
-            path="/postdetail"
+            path="/postdetail/:postId"
             element={user ? <PostDetail /> : <Login />}
           />
           <Route
@@ -42,6 +43,10 @@ function App() {
             element={user ? <UserProfile /> : <Login />}
           />
           <Route
+            path="/user/:userId/Likes"
+            element={user ? <ProfileLikes /> : <Login />}
+          />
+          <Route
             path="/user/:userId/Followers"
             element={user ? <ProfileFollowers /> : <Login />}
           />
@@ -49,7 +54,7 @@ function App() {
             path="/user/:userId/Following"
             element={user ? <ProfileFollowing /> : <Login />}
           />
-          <Route path="/connect" element={user ? <ProfileCard /> : <Login />} />
+          <Route path="/connect" element={user ? <Connect /> : <Login />} />
           <Route path="/edit" element={user ? <EditProfile userId='64f7173ecaa7ceedd35b3872' /> : <Login />} />
 
           {/* <Route path="/post/:postId" element={<Single />} /> */}

@@ -33,8 +33,8 @@ const register = async (req, res) => {
     const hashedPassword = await hashPassword(password);
 
     const token = crypto.randomBytes(32).toString("hex");
-    const tokenExpiration = new Date(Date.now() + 60 * 60 * 1000);
-    const verificationLink = `http://localhost:5000/user/verify?email=${email}?token=${token}`;
+    const tokenExpiration = new Date(Date.now() + 10 * 60 * 1000);
+    const verificationLink = `http://localhost:5000/api/user/verify?email=${email}?token=${token}`;
     const emailContent = `Click on this link to verify your email: ${verificationLink}`;
     //send verification link before this threw email to verify user by OTP.
     await sendEmail(email, "Email Verification", emailContent);
@@ -100,12 +100,12 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    // if (!user.isVerified) {
-    //   return res.status(400).json({
-    //     message:
-    //       "Oops! Your email is not verified yet, please verify your email",
-    //   });
-    // }
+    if (!user.isVerified) {
+      return res.status(400).json({
+        message:
+          "Oops! Your email is not verified yet, please verify your email",
+      });
+    }
     const checkPassword = await comparePassword(password, user["password"]);
     if (!checkPassword) {
       return res.status(401).json({ message: "Oops! wrong password entered." });

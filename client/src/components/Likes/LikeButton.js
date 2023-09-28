@@ -4,12 +4,10 @@ import React, { useState } from 'react';
 function LikeButton() {
   const [liked, setLiked] = useState(false);
 
-  const handleLike = () => {
-    if (liked) {
-      setLiked(false);
-    } else {
-      setLiked(true);
-    }
+  const handleLike = (e) => {
+    e.preventDefault(); 
+      setLiked(!liked);
+    
     // Add logic to send a like for the post to your backend
     // Example API request:
     // fetch(`/api/posts/${postId}/like`, {
