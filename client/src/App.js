@@ -24,9 +24,9 @@ function App() {
   return (
     <div>
       <Router>
-        {/* {user ? <NavbarIn /> : <StickyNavbar />} */}
         <Routes>
           <Route element={<PrivateRoutes />}>
+
             <Route path="/" element={<Home />} />
             <Route path="/post" element={<PostSingle />} />
             <Route path="/postdetail/:postId" element={<PostDetail />} />
@@ -38,34 +38,14 @@ function App() {
             <Route path="/user/:userId/Following" element={<ProfileFollowing />} />
             <Route path="/connect" element={<Connect />} />
             <Route path="/edit" element={<EditProfile userId='64f7173ecaa7ceedd35b3872' />} />
-          </Route>
 
-          {/* Routes that don't require authentication */}
+          </Route>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {/* <Route path="/" element={user ? <Home /> : <Login />} />
-          <Route path="/login" element={user ? <Home /> : <Login />} />
-          <Route path="/register" element={user ? <Home /> : <Register />} />
-          <Route path="/post" element={user ? <PostSingle /> : <Login />} />
-          <Route path="/postdetail/:postId" element={user ? <PostDetail /> : <Login />} />
-          <Route path="/postlist" element={user ? <PostList /> : <Login />} />
-          <Route path="/create" element={user ? <CreatePost /> : <Login />} />
-          <Route path="/user/:userId" element={user ? <UserProfile /> : <Login />} />
-          <Route path="/user/:userId/Likes" element={user ? <ProfileLikes /> : <Login />} />
-          <Route path="/user/:userId/Followers" element={user ? <ProfileFollowers /> : <Login />} />
-          <Route path="/user/:userId/Following" element={user ? <ProfileFollowing /> : <Login />} />
-          <Route path="/connect" element={user ? <Connect /> : <Login />} />
-          <Route path="/edit" element={user ? <EditProfile userId='64f7173ecaa7ceedd35b3872' /> : <Login />} /> */}
-
-          {/* <Route path="/post/:postId" element={<Single />} /> */}
         </Routes>
+        {localStorage.getItem("token") ? <NavbarIn /> : <StickyNavbar />}
       </Router>
-
-      {/* Conditional rendering of the navbar */}
-      {localStorage.getItem('token') ? <NavbarIn /> : <StickyNavbar />}
-
     </div>
   );
 }
