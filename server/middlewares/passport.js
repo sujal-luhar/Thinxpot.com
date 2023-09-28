@@ -14,16 +14,21 @@ const options = {
 
 passport.use(
   new jwtStretegy(options, async (payload, done) => {
-    await userModel.findById(payload.id, (err, user) => {
-      if (err) {
-        return done(err, false);
-      }
+    try {
+      const user = await userModel.findById(payload._id);
       if (user) {
-        return done(null, user);
+        const details = {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+        };
+        return done(null, details);
       } else {
         return done(null, false);
       }
-    });
+    } catch (error) {
+      return done(err, false);
+    }
   })
 );
 

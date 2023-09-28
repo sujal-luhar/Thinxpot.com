@@ -1,11 +1,26 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const postController = require('../controllers/postController');
+const {
+  createPost,
+  getAllPostsOfSingleUser,
+  getPostsById,
+} = require("../controllers/postController");
+const { passport } = require("../middlewares/passport");
 
 // Define routes that use controller functions
-router.post('/create', postController.createPost);
-router.get('/all', postController.getAllPosts);
-router.get('/:id', postController.getSinglePosts);
-// Add more routes for updating and deleting posts
-
+router.post(
+  "/create",
+  passport.authenticate("jwt", { session: false }),
+  createPost
+);
+router.get(
+  "/all",
+  passport.authenticate("jwt", { session: false }),
+  getAllPostsOfSingleUser
+);
+router.get(
+  "/:postId",
+  passport.authenticate("jwt", { session: false }),
+  getPostsById
+);
 module.exports = router;

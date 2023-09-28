@@ -8,17 +8,29 @@ const { sendEmail } = require("../utils/mail");
 // Controller function for user registration
 const register = async (req, res) => {
   try {
-    const { first_name, last_name, username, email, password, confirm_password } =
-      req.body;
+    const {
+      first_name,
+      last_name,
+      username,
+      email,
+      password,
+      confirm_password,
+    } = req.body;
     if (
-      !(username && email && password && first_name && last_name && confirm_password)
+      !(
+        username &&
+        email &&
+        password &&
+        first_name &&
+        last_name &&
+        confirm_password
+      )
     ) {
       return res.status(400).json({
         message:
           "Bad request. Please provide necessary details for registration",
       });
-    }
-    else if (password.length < 8 || password !== confirm_password) {
+    } else if (password.length < 8 || password !== confirm_password) {
       return res.status(400).json({
         message:
           "Password should be atleast 8 characters long and should match with confirm password",
@@ -34,7 +46,7 @@ const register = async (req, res) => {
 
     const token = crypto.randomBytes(32).toString("hex");
     const tokenExpiration = new Date(Date.now() + 10 * 60 * 1000);
-    const verificationLink = `http://localhost:5000/api/user/verify?email=${email}?token=${token}`;
+    const verificationLink = `http://localhost:5000/api/users/verify?email=${email}&token=${token}`;
     const emailContent = `Click on this link to verify your email: ${verificationLink}`;
     //send verification link before this threw email to verify user by OTP.
     await sendEmail(email, "Email Verification", emailContent);
@@ -50,7 +62,9 @@ const register = async (req, res) => {
     });
     return res.status(201).json({ message: "User registered" });
   } catch (error) {
-    return res.status(500).json({ message: "Oops! something went wrong   " + error });
+    return res
+      .status(500)
+      .json({ message: "Oops! something went wrong   " + error });
   }
 };
 
@@ -123,42 +137,32 @@ const logout = (req, res) => {
   // You may also clear any session data if you're using sessions.
 
   // Redirect the user to the login page or another appropriate page
-  res.redirect('/login');
+  res.redirect("/login");
 };
 
 const edit = async (req, res) => {
-  const {
-    first_name,
-    last_name,
-    location,
-    affiliation,
-    education,
-    bio,
-  } = req.body;
+  const { first_name, last_name, location, affiliation, education, bio } =
+    req.body;
 
-  // Create a new Post instance 
+  // Create a new Post instance
 
   try {
-    const newUserData = await User.findByIdAndUpdate( req.params.userId , {
+    const newUserData = await User.findByIdAndUpdate(req.params.userId, {
       $set: {
         first_name,
         last_name,
         location,
         affiliation,
         education,
-        bio // User's ObjectId who authored the post
-      }
+        bio, // User's ObjectId who authored the post
+      },
     });
     res.status(201).json({ message: "User updated successfully", newUserData });
-
-  }
-  catch (err) {
+  } catch (err) {
     return res
       .status(400)
       .json({ error: "Failed to update user", details: err.message });
   }
-
-
-}
+};
 
 module.exports = { register, login, verifyEmail, logout, edit };
