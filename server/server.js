@@ -27,6 +27,7 @@ mongoose
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/upload", require("./routes/uploadRoutes")); // to upload avatar may be !!!
 app.use("/api/posts", require("./routes/postRoutes"));
+app.use("/api/profile", require("./routes/profileRoutes"));
 app.use("/api/likes", require("./routes/likeRoutes"));
 app.use("/api/follows", require("./routes/followRoutes"));
 app.use("/api/comments", require("./routes/commentRoutes"));

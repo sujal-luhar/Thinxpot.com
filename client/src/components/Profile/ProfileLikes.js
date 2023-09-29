@@ -2,27 +2,39 @@ import React, { useEffect, useState } from 'react'
 import PostSingle from '../Posts/PostSingle';
 import axios from 'axios';
 import api from "../../api/axios";
+import { useParams } from 'react-router-dom';
 
 
 function ProfileLikes() {
-
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        if (!loading) {
-            setLoading(true);
+        console.log(posts)
 
-            // Fetch data from the server when the component mounts
-            axios.get('/api/posts/all') // Replace with your API endpoint
-                .then((response) => {
-                    setPosts(response.data); // Update the state with the retrieved data
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+        async function fetchUserLikes() {
+
+            if (!loading) {
+                setLoading(true);
+
+                try {
+                    api
+                        .get("/api/profile/likes")
+                        .then((response) => {
+                            if (response.status === 201) {
+                                setPosts(response.data?.data);
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                } catch (error) {
+                    console.error("Error checking like status:", error);
+                }
+            }
+            setLoading(false);
         }
-        setLoading(false);
+        fetchUserLikes();
 
     }, []);
 

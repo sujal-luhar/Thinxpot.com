@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonGroup, Link, Button } from "@material-tailwind/react";
+import { ButtonGroup, Button } from "@material-tailwind/react";
 import EditProfile from './EditProfile';
 import PostSingle from '../Posts/PostSingle';
 import PostList from '../Posts/PostList';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import api from '../../api/axios';
 
@@ -124,7 +124,7 @@ function UserProfile() {
                   </div>
                   <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
                     <div className="flex-wrap w-auto gap-4 flex justify-center">
-                      <a href='/user/:userId/Likes'><Button size="sm" className='w-40'>Likes</Button></a>
+                      <Link to={`/user/${userId}/Likes`}><Button size="sm" className='w-40'>Likes</Button></Link>
                       <a href='/user/:userId/Followers'><Button size="sm" className='w-40'>Followers</Button></a>
                       <a href='/user/:userId/Following'><Button size="sm" className='w-40'>Following</Button></a>
                     </div>

@@ -4,10 +4,13 @@ const {
   createPost,
   getAllPostsOfSingleUser,
   getPostsById,
+} = require("../controllers/postController");
+const {
   checkLikeStatus, 
   createLike,
-  removeLike
-} = require("../controllers/postController");
+  removeLike,
+} = require("../controllers/likeController")
+
 const { passport } = require("../middlewares/passport");
 const { create } = require("../models/user");
 
@@ -33,7 +36,7 @@ router.get(
 
 //Like routes
 router.get(
-  "/:postId/likes/:userId",
+  "/:postId/likeStatus",
   passport.authenticate("jwt", { session: false }),
   checkLikeStatus
 );
@@ -43,7 +46,7 @@ router.post(
   createLike
 );
 router.delete(
-  "/:postId/likes/:userId",
+  "/:postId/likes",
   passport.authenticate("jwt", { session: false }),
   removeLike
 );

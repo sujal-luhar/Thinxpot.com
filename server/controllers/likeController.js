@@ -1,82 +1,98 @@
-const Like = require("../models/like"); // Import the Like model
+const Like = require("../models/like");
 
-// Controller function to create a new like
-exports.createLike = (req, res) => {
-  // Extract like data from the request body
-  const { user, post } = req.body;
 
-  // Check if the user has already liked the post
-  Like.findOne({ user, post }, (err, existingLike) => {
-    if (err) {
-      // Handle the error
-      return res.status(500).json({ error: "Server error" });
+const checkLikeStatus = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.user._id;
+    if (!postId || !userId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId and userId",
+      };
     }
+    const like = await Like.find({ postId : postId, userId : userId });
 
-    if (existingLike) {
-      // User has already liked this post
-      return res
-        .status(400)
-        .json({ error: "User has already liked this post" });
-    }
-
-    // Create a new Like instance
-    const newLike = new Like({
-      user, // User's ObjectId who liked the post
-      post, // Post's ObjectId that was liked
-    });
-
-    // Save the like to the database
-    newLike.save((err, like) => {
-      if (err) {
-        // Handle the error
-        return res
-          .status(400)
-          .json({ error: "Failed to create like", details: err.message });
-      }
-
-      // Like created successfully, send a response
-      res.status(201).json({ message: "Like created successfully", like });
-    });
-  });
+    const likeStatus = like ? true : false;
+    res.status(203).json({ message: "Got like status", data: likeStatus });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get like status", details: error.message });
+  }
 };
 
-// Controller function to remove a like
-exports.removeLike = (req, res) => {
-  // Extract like data from the request body
-  const { user, post } = req.body;
-
-  // Find and delete the user's like for the post
-  Like.findOneAndDelete({ user, post }, (err, deletedLike) => {
-    if (err) {
-      // Handle the error
-      return res.status(500).json({ error: "Server error" });
+const createLike = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.user._id;
+    if (!postId || !userId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId and userId",
+      };
     }
+   
+    const like = await new Like({ postId: postId, userId: userId });
+    await like.save();
 
-    if (!deletedLike) {
-      // Like not found
-      return res.status(404).json({ error: "Like not found" });
-    }
-
-    // Like removed successfully, send a response
-    res.status(200).json({ message: "Like removed successfully" });
-  });
+    res.status(201).json({ message: "Post liked successfully", like });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to like post", details: error.message });
+  }
 };
 
-// Controller function to get all likes for a post
-exports.getLikesForPost = (req, res) => {
-  // Extract the post ID from the request parameters
-  const { postId } = req.params;
-
-  // Find all likes for the specified post
-  Like.find({ post: postId }, (err, likes) => {
-    if (err) {
-      // Handle the error
-      return res.status(500).json({ error: "Server error" });
+const removeLike = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.user._id;
+    if (!postId || !userId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId and userId",
+      };
     }
-
-    // Send the list of likes as a response
-    res.status(200).json(likes);
-  });
+    const like = await Like.deleteOne({ postId: postId, userId: userId })
+    if (!like) {
+      return {
+        status: 404,
+        message: "Requested post not found",
+      };
+    }
+    
+    res.status(201).json({ message: "Post unliked successfully", like });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to unlike post", details: error.message });
+  }
 };
 
-// Add more controller functions for additional like-related actions as needed
+const   fetchUserLikes = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId and userId",
+      };
+    }
+    const likes = await Like.find({ userId: userId })
+
+    if (!likes) {
+      return {
+        status: 404,
+        message: "Requested posts not found",
+      };
+    }
+    res.status(201).json({ message: "Fetched liked posts successfully", data: likes });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to fetch liked post", details: error.message });
+  }
+}
+
+module.exports = { checkLikeStatus, createLike, removeLike, fetchUserLikes };

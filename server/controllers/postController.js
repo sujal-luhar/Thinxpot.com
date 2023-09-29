@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const Like = require("../models/like");
 
 const createPost = async (req, res) => {
   try {
@@ -80,21 +81,16 @@ const getPostsById = async (req, res) => {
 const checkLikeStatus = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const userId = req.params.userId;
+    const userId = req.user._id;
     if (!postId || !userId) {
       return {
         status: 400,
         message: "Invalid request, it requires postId and userId",
       };
     }
-    const post = await Post.findById(postId);
-    if (!post) {
-      return {
-        status: 404,
-        message: "Requested post not found",
-      };
-    }
-    const likeStatus = post.likes.includes(userId);
+    const like = await Like.find({ postId : postId, userId : userId });
+
+    const likeStatus = like ? true : false;
     res.status(203).json({ message: "Got like status", data: likeStatus });
   } catch (error) {
     return res
@@ -106,16 +102,18 @@ const checkLikeStatus = async (req, res) => {
 const createLike = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const userId = req.body.userId;
+    const userId = req.user._id;
     if (!postId || !userId) {
       return {
         status: 400,
         message: "Invalid request, it requires postId and userId",
       };
     }
-   // code to make new like document in mongo db
+   
+    const like = await new Like({ postId: postId, userId: userId });
+    await like.save();
 
-    res.status(201).json({ message: "Post liked successfully", post });
+    res.status(201).json({ message: "Post liked successfully", like });
   } catch (error) {
     return res
       .status(400)
@@ -126,31 +124,22 @@ const createLike = async (req, res) => {
 const removeLike = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const userId = req.params.userId;
+    const userId = req.user._id;
     if (!postId || !userId) {
       return {
         status: 400,
         message: "Invalid request, it requires postId and userId",
       };
     }
-    const post = await Post.findById(postId);
-    if (!post) {
+    const like = await Like.deleteOne({ postId: postId, userId: userId })
+    if (!like) {
       return {
         status: 404,
         message: "Requested post not found",
       };
     }
-    const likeStatus = post.likes.includes(userId);
-    if (!likeStatus) {
-      return {
-        status: 400,
-        message: "You have not liked this post",
-      };
-    }
-    const index = post.likes.indexOf(userId);
-    post.likes.splice(index, 1);
-    await post.save();
-    res.status(201).json({ message: "Post unliked successfully", post });
+    
+    res.status(201).json({ message: "Post unliked successfully", like });
   } catch (error) {
     return res
       .status(400)

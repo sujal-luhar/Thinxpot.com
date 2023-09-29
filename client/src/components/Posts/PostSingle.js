@@ -122,7 +122,7 @@ function PostSingle({ postId }) {
                 </a>
               </div>
 
-              <LikeButton />
+              <LikeButton postId={postId}/>
 
               <div class="flex-1 text-center py-2 m-2">
                 <a

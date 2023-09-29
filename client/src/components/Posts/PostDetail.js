@@ -156,7 +156,7 @@ function PostDetail() {
                 </a>
               </div>
 
-              <LikeButton />
+              <LikeButton postId={post._id}/>
 
               <div class="flex-1 text-center py-2 m-2">
                 <a href="#" class="w-12 mt-1 group flex items-center text-gray-700 px-3 py-2 text-base leading-6 font-medium rounded-[5px] hover:bg-gray-100 hover:text-gray-600">
