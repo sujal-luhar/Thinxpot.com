@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import {
   Navbar,
   MobileNav,
@@ -26,7 +26,7 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
   PlusCircleIcon,
-  AcademicCapIcon
+  AcademicCapIcon,
 } from "@heroicons/react/24/outline";
 import api from "../../api/axios";
 
@@ -35,7 +35,6 @@ function ProfileMenu() {
   const [userId, setUser] = React.useState(null);
 
   React.useEffect(() => {
-
     api
       .get(`/api/userId`)
       .then((response) => {
@@ -47,8 +46,7 @@ function ProfileMenu() {
       })
       .catch((error) => {
         console.error("Error fetching post:", error);
-      })
-
+      });
   }, []);
 
   // profile menu component
@@ -84,18 +82,16 @@ function ProfileMenu() {
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-              }`}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
           />
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-
-
         <Link to={`/user/6515022a0b6815c3dff39aeb`}>
-
           <MenuItem
-            key={'My Profile'}
+            key={"My Profile"}
             onClick={closeMenu}
             className={`flex items-center gap-2 rounded `}
           >
@@ -109,7 +105,7 @@ function ProfileMenu() {
               className="font-normal"
               color="inherit"
             >
-              {'My Profile'}
+              {"My Profile"}
             </Typography>
           </MenuItem>
         </Link>
@@ -118,16 +114,15 @@ function ProfileMenu() {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <>
-
               <Link to={link}>
-
                 <MenuItem
                   key={label}
                   onClick={closeMenu}
-                  className={`flex items-center gap-2 rounded ${isLastItem
-                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                    : ""
-                    }`}
+                  className={`flex items-center gap-2 rounded ${
+                    isLastItem
+                      ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                      : ""
+                  }`}
                 >
                   {React.createElement(icon, {
                     className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
@@ -142,14 +137,10 @@ function ProfileMenu() {
                     {label}
                   </Typography>
                 </MenuItem>
-
               </Link>
-
             </>
           );
-        }
-        )}
-
+        })}
       </MenuList>
     </Menu>
   );
@@ -206,7 +197,7 @@ export default function NavbarIn() {
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false),
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
 
