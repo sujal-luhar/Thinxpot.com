@@ -109,9 +109,10 @@ const getFollowers = async (req, res) => {
       "username first_name last_name education location affiliation"
     );
     const data = followList.map((x) => ({
+      _id: x.followerId._id,
       followingId: x.followerId,
       username: x.followerId.username,
-      profession: x.followerId.affiliation,
+      affiliation: x.followerId.affiliation,
       education: x.followerId.education,
       first_name: x.followerId.first_name,
       last_name: x.followerId.last_name,
@@ -166,10 +167,119 @@ const getFollowing = async (req, res) => {
   }
 };
 
+const getFollowersCount = async (req, res) => {
+  try {
+    const followingId = req.user._id;
+
+    if (!followingId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires followingId",
+      };
+    }
+    const followList = await Follow.find({ followingId: followingId }).populate(
+      "followerId",
+      "username first_name last_name education location affiliation"
+    );
+    const data = followList.map((x) => ({
+      _id: x.followerId._id,
+      followingId: x.followerId,
+      username: x.followerId.username,
+      affiliation: x.followerId.affiliation,
+      education: x.followerId.education,
+      first_name: x.followerId.first_name,
+      last_name: x.followerId.last_name,
+      location: x.followerId.location,
+    }));
+    if (followList.length === 0) {
+      res.status(200).end({ message: "You have zero followers" });
+    }
+    res.status(201).json({ message: "Fetched Followers", data: followList.length }); 
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to fetch Followers", details: error.message });
+  }
+}
+
+const searchFollowing = async (req, res) => {
+  try {
+    const { search } = req.query;
+    
+    if (!followingId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires followingId",
+      };
+    }
+    const followList = await Follow.find({ followingId: followingId }).populate(
+      "followerId",
+      "username first_name last_name education location affiliation"
+    );
+    const data = followList.map((x) => ({
+      _id: x.followerId._id,
+      followingId: x.followerId,
+      username: x.followerId.username,
+      affiliation: x.followerId.affiliation,
+      education: x.followerId.education,
+      first_name: x.followerId.first_name,
+      last_name: x.followerId.last_name,
+      location: x.followerId.location,
+    }));
+    if (followList.length === 0) {
+      res.status(200).end({ message: "You have zero followers" });
+    }
+
+    const following = data.filter({
+      $or: [
+        { first_name: { $regex: search, $options: "i" } },
+        { last_name: { $regex: search, $options: "i" } },
+        { username: { $regex: search, $options: "i" } },
+      ],
+    });
+
+    if (users.length === 0) {
+      return res.status(204).json({ message: 'No users found' });
+    }
+
+    res.status(200).json({ message: "Got all users", data : following });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get users", details: error.message });
+  }
+}
+
+const searchFollowers = async (req, res) => {
+  try {
+    const { search } = req.query;
+    const users = await User.find({
+      $or: [
+        { first_name: { $regex: search, $options: "i" } },
+        { last_name: { $regex: search, $options: "i" } },
+        { username: { $regex: search, $options: "i" } },
+      ],
+    });
+
+    if (users.length === 0) {
+      return res.status(204).json({ message: 'No users found' });
+    }
+
+    res.status(200).json({ message: "Got all users", users });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get users", details: error.message });
+  }
+}
+
 module.exports = {
   getFollowStatus,
   createFollow,
   removeFollow,
   getFollowers,
   getFollowing,
+  getFollowersCount,
+  searchFollowing,
+  searchFollowers
 };

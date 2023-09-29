@@ -15,9 +15,11 @@ router.post("/register", register);
 router.get("/verify", verifyEmail);
 router.post("/login", login);
 router.get("/logout", logout);
-router.put("/:userId/editprofile", edit);
 router.get('/search', searchUsers);
 router.get("/:userId", getUserData);
+
+// place it to profileRoutes.js
+router.put("/:userId/editprofile", edit);
 // Add more routes and controllers as needed
 
 module.exports = router;

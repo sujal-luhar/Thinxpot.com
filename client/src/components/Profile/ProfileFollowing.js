@@ -16,7 +16,8 @@ export default function ProfileFollowing() {
       })
       .catch((error) => console.error(error));
   }, []);
-  const handleSearch = () => {};
+  const handleSearch = () => {
+  };
 
   return (
     <div className="flex flex-col">

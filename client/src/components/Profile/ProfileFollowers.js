@@ -12,7 +12,6 @@ export default function ProfileFollowers() {
     api
       .get(`/api/profile/follow/followers`)
       .then((response) => {
-        console.log(response.data?.data);
         setFollowers(response.data?.data);
       })
       .catch((error) => console.error(error));

@@ -8,6 +8,8 @@ const {
   removeFollow,
   getFollowing,
   getFollowers,
+  searchFollowing,
+  searchFollowers
 } = require("../controllers/followController");
 
 router.get(
@@ -45,5 +47,19 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   getFollowers
 );
+
+router.get(
+  "/search/following",
+  passport.authenticate("jwt", { session: false }),
+  searchFollowing
+);
+
+router.get(
+  "/search/followers",
+  passport.authenticate("jwt", { session: false }),
+  searchFollowers
+);
+
+
 
 module.exports = router;
