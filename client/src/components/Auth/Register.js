@@ -26,6 +26,7 @@ function Register() {
         if (response.status === 201) {
           // Registration was successful, you can redirect the user or update the UI
           console.log('Registration successful');
+
         } else {
           // Handle registration error, show an error message, etc.
           console.error('Registration failed');
