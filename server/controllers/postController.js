@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const Like = require("../models/like");
+const User = require("../models/user");
 
 const createPost = async (req, res) => {
   try {
@@ -62,14 +63,19 @@ const getPostsById = async (req, res) => {
         message: "Requested post not found",
       };
     }
+    const author = await User.findById(post.authorId);
     const data = {
       title: post.title,
       subject: post.subject,
       content: post.content,
       pdfLink: post.pdfLink,
       authorId: post.authorId,
+      authorName: author.username,
+      authorFName: author.first_name,
+      authorLName: author.last_name,
       createdAt: post.createdAt,
     };
+
     res.status(203).json({ message: "Got single Post", data: data });
   } catch (error) {
     return res
