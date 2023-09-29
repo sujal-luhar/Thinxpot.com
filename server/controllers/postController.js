@@ -1,49 +1,80 @@
 const Post = require("../models/post");
 
-exports.createPost = async (req, res) => {
-  const { title, subject, content, pdfLink, authorId } = req.body;
-
-  // Create a new Post instance 
-  const newPost = new Post({
-    title,
-    subject,
-    content,
-    pdfLink,
-    authorId, // User's ObjectId who authored the post
-  });
-
+const createPost = async (req, res) => {
   try {
-    const post = await newPost.save();
-
+    const { title, subject, content, pdfLink, authorId } = req.body.data;
+    if (!(title && subject && content && pdfLink && authorId)) {
+      return res
+        .status(400)
+        .json({ error: "Please enter all fields to create post" });
+    }
+    // Create a new Post instance
+    const post = {
+      title: title,
+      subject: subject,
+      content: content,
+      pdfLink: pdfLink,
+      authorId: req.user._id,
+    };
+    await Post.create(post);
     res.status(201).json({ message: "Post created successfully", post });
-  }
-  catch (err) {
+  } catch (err) {
     return res
       .status(400)
       .json({ error: "Failed to create post", details: err.message });
   }
-
 };
 
-exports.getAllPosts = async (req, res) => {
+const getAllPostsOfSingleUser = async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt : -1 })
-    res.status(200).json(posts);
-  }
-  catch (err) {
-    return res.status(500).json({ error: err, details: err.message });
-  } 
-}
-
-exports.getSinglePosts = async (req, res) => {
-  const postId = req.params.id
-  try {
-    const post = await Post.findOne({ _id: postId })
-    res.status(200).json(post);
-  }
-  catch (err) {
-    return res.status(500).json({ error: "Server error" });
+    const user = req.user;
+    const findAllPosts = await Post.find({ authorId: user._id });
+    const data = findAllPosts.map((x) => ({
+      _id: x._id,
+      title: x.title,
+      subject: x.subject,
+      content: x.content,
+      pdfLink: x.pdfLink,
+      authorId: x.authorId,
+    }));
+    res.status(203).json({ message: "Got all Posts", data: data });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get posts", details: err.message });
   }
 };
 
-// Add more controller functions for updating and deleting posts as needed
+const getPostsById = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    if (!postId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId",
+      };
+    }
+    const post = await Post.findById(postId);
+    if (!post) {
+      return {
+        status: 404,
+        message: "Requested post not found",
+      };
+    }
+    const data = {
+      title: post.title,
+      subject: post.subject,
+      content: post.content,
+      pdfLink: post.pdfLink,
+      authorId: post.authorId,
+      createdAt: post.createdAt,
+    };
+    res.status(203).json({ message: "Got single Post", data: data });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get post", details: err.message });
+  }
+};
+
+module.exports = { createPost, getAllPostsOfSingleUser, getPostsById };

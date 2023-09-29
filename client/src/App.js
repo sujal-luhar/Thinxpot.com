@@ -19,16 +19,13 @@ import Connect from "./components/connect/Connect";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
-  const user = true;
-
   return (
     <div>
       <Router>
-      {/* {localStorage.getItem("token") ? <NavbarIn /> : <StickyNavbar />} */}
-      {user ? <NavbarIn /> : <StickyNavbar />}
+      {localStorage.getItem("jwtToken") ? <NavbarIn /> : <StickyNavbar />}
+      {/* {user ? <NavbarIn /> : <StickyNavbar />} */}
         <Routes>
           <Route element={<PrivateRoutes />}>
-
             <Route path="/" element={<Home />} />
             <Route path="/post" element={<PostSingle />} />
             <Route path="/postdetail/:postId" element={<PostDetail />} />
@@ -36,13 +33,20 @@ function App() {
             <Route path="/create" element={<CreatePost />} />
             <Route path="/user/:userId" element={<UserProfile />} />
             <Route path="/user/:userId/Likes" element={<ProfileLikes />} />
-            <Route path="/user/:userId/Followers" element={<ProfileFollowers />} />
-            <Route path="/user/:userId/Following" element={<ProfileFollowing />} />
+            <Route
+              path="/user/:userId/Followers"
+              element={<ProfileFollowers />}
+            />
+            <Route
+              path="/user/:userId/Following"
+              element={<ProfileFollowing />}
+            />
             <Route path="/connect" element={<Connect />} />
-            <Route path="/edit" element={<EditProfile userId='64f7173ecaa7ceedd35b3872' />} />
-
+            <Route
+              path="/edit"
+              element={<EditProfile userId="64f7173ecaa7ceedd35b3872" />}
+            />
           </Route>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
