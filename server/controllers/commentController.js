@@ -26,6 +26,10 @@ exports.createComment = (req, res) => {
   });
 };
 
+exports.removeComment = (req, res) => {
+  //asd
+}
+
 // Controller function to get all comments for a post
 exports.getCommentsForPost = (req, res) => {
   // Extract the post ID from the request parameters

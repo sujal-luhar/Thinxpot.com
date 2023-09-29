@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StickyNavbar from "./components/Navbar/Navbar";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
@@ -19,11 +19,13 @@ import Connect from "./components/connect/Connect";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
-  const user = false;
+  const user = true;
 
   return (
     <div>
       <Router>
+      {/* {localStorage.getItem("token") ? <NavbarIn /> : <StickyNavbar />} */}
+      {user ? <NavbarIn /> : <StickyNavbar />}
         <Routes>
           <Route element={<PrivateRoutes />}>
 
@@ -44,7 +46,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
-        {localStorage.getItem("token") ? <NavbarIn /> : <StickyNavbar />}
       </Router>
     </div>
   );

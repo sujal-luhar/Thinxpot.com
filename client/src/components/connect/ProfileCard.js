@@ -6,6 +6,11 @@ import {
 } from "@material-tailwind/react";
 
 export default function ProfileCard() {
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  const handleToggle = () => {
+    setIsFollowing(!isFollowing); // Toggle the state
+  };
   //handling user fetching
   return (
     <div className="flex flex-col">
@@ -16,7 +21,7 @@ export default function ProfileCard() {
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
       <section style={{ fontFamily: "Montserrat" }} class="flex font-medium items-center justify-center mt-8 mb-4">
-        <section class="w-auto flex-row flex mx-auto bg-[#20354b] rounded-2xl px-8 py-6 shadow-lg">
+        <section className="w-auto flex-row flex mx-auto rounded-2xl px-8 py-6 shadow-lg" style={{backgroundColor:isFollowing?'#33495f':'#20354b'}}>
           <div class="mt-6 w-fit mx-auto">
             <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" class="rounded-full w-28 " alt="profile picture" />
           </div>
@@ -38,7 +43,7 @@ export default function ProfileCard() {
             <div className="flex my-2 w-auto flex-col">
               <ButtonGroup className="flex-wrap w-auto" variant="outlined" ripple={false} color="white" size="sm">
                 <Button className='w-auto'>View</Button>
-                <Button className='w-auto'>Follow</Button>
+                <Button className='w-24' onClick={handleToggle}>{isFollowing ? 'Unfollow' : 'Follow'}</Button>
               </ButtonGroup>
             </div>
         </section>
