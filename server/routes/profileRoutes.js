@@ -1,11 +1,14 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
-const {
-  fetchUserLikes
-} = require("../controllers/likeController");
+const { fetchUserLikes } = require("../controllers/likeController");
 const { passport } = require("../middlewares/passport");
-const { create } = require("../models/user");
+const {
+  createFollow,
+  getFollowStatus,
+  removeFollow,
+  getFollowing,
+  getFollowers,
+} = require("../controllers/followController");
 
 router.get(
   "/likes",
@@ -13,6 +16,34 @@ router.get(
   fetchUserLikes
 );
 
-app.use("/follow", require("../routes/followRoutes"));
+router.post(
+  "/follow/:userId/create",
+  passport.authenticate("jwt", { session: false }),
+  createFollow
+);
+
+router.get(
+  "/follow/:userId/followStatus",
+  passport.authenticate("jwt", { session: false }),
+  getFollowStatus
+);
+
+router.delete(
+  "/follow/:userId/remove",
+  passport.authenticate("jwt", { session: false }),
+  removeFollow
+);
+
+router.get(
+  "/follow/following",
+  passport.authenticate("jwt", { session: false }),
+  getFollowing
+);
+
+router.get(
+  "/follow/followers",
+  passport.authenticate("jwt", { session: false }),
+  getFollowers
+);
 
 module.exports = router;

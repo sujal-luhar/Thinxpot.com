@@ -22,8 +22,8 @@ function App() {
   return (
     <div>
       <Router>
-      {localStorage.getItem("jwtToken") ? <NavbarIn /> : <StickyNavbar />}
-      {/* {user ? <NavbarIn /> : <StickyNavbar />} */}
+        {localStorage.getItem("jwtToken") ? <NavbarIn /> : <StickyNavbar />}
+        {/* {user ? <NavbarIn /> : <StickyNavbar />} */}
         <Routes>
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
@@ -33,14 +33,8 @@ function App() {
             <Route path="/create" element={<CreatePost />} />
             <Route path="/user/:userId" element={<UserProfile />} />
             <Route path="/user/:userId/Likes" element={<ProfileLikes />} />
-            <Route
-              path="/user/:userId/Followers"
-              element={<ProfileFollowers />}
-            />
-            <Route
-              path="/user/:userId/Following"
-              element={<ProfileFollowing />}
-            />
+            <Route path="/user/Followers" element={<ProfileFollowers />} />
+            <Route path="/user/Following" element={<ProfileFollowing />} />
             <Route path="/connect" element={<Connect />} />
             <Route
               path="/edit"
