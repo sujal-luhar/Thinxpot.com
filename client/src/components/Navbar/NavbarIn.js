@@ -28,28 +28,42 @@ import {
   PlusCircleIcon,
   AcademicCapIcon
 } from "@heroicons/react/24/outline";
-
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    link: "/user/6515022a0b6815c3dff39aeb",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Inbox",
-    link: "",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Sign Out",
-    link: "",
-    icon: PowerIcon,
-  },
-];
+import api from "../../api/axios";
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [userId, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+
+    api
+      .get(`/api/userId`)
+      .then((response) => {
+        if (response.data) {
+          setUser(response.data);
+        } else {
+          console.error("Invalid or empty response (userId) data");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching post:", error);
+      })
+
+  }, []);
+
+  // profile menu component
+  const profileMenuItems = [
+    {
+      label: "Inbox",
+      link: "",
+      icon: InboxArrowDownIcon,
+    },
+    {
+      label: "Sign Out",
+      link: "",
+      icon: PowerIcon,
+    },
+  ];
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -76,38 +90,66 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
+
+
+        <Link to={`/user/${userId}`}>
+
+          <MenuItem
+            key={'My Profile'}
+            onClick={closeMenu}
+            className={`flex items-center gap-2 rounded `}
+          >
+            {React.createElement(UserCircleIcon, {
+              className: `h-4 w-4 ""`,
+              strokeWidth: 2,
+            })}
+            <Typography
+              as="span"
+              variant="small"
+              className="font-normal"
+              color="inherit"
+            >
+              {'My Profile'}
+            </Typography>
+          </MenuItem>
+        </Link>
+
         {profileMenuItems.map(({ label, link, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <>
-            <Link to={link}>
-            
-              <MenuItem
-                key={label}
-                onClick={closeMenu}
-                className={`flex items-center gap-2 rounded ${isLastItem
+
+              <Link to={link}>
+
+                <MenuItem
+                  key={label}
+                  onClick={closeMenu}
+                  className={`flex items-center gap-2 rounded ${isLastItem
                     ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                     : ""
-                  }`}
-            >
-                {React.createElement(icon, {
-                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                  strokeWidth: 2,
-                })}
-                <Typography
-                  as="span"
-                  variant="small"
-                  className="font-normal"
-                  color={isLastItem ? "red" : "inherit"}
+                    }`}
                 >
-                  {label}
-                </Typography>
-              </MenuItem>
-                </Link>
+                  {React.createElement(icon, {
+                    className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                    strokeWidth: 2,
+                  })}
+                  <Typography
+                    as="span"
+                    variant="small"
+                    className="font-normal"
+                    color={isLastItem ? "red" : "inherit"}
+                  >
+                    {label}
+                  </Typography>
+                </MenuItem>
+
+              </Link>
 
             </>
           );
-        })}
+        }
+        )}
+
       </MenuList>
     </Menu>
   );

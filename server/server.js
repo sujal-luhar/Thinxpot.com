@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
 
+
 // Create an instance of Express.js
 const app = express();
 
@@ -41,13 +42,12 @@ app.get("/", (req, res) => {
 // Import your passport instance and JWT_SECRET
 // // ...
 
-// app.get('/api/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
-//   // Access the user information from the request
-//   const user = req.user;
+app.get('/api/userId', passport.authenticate('jwt', { session: false }), (req, res) => {
+  // Access the user information from the request
+  const user = req.user._id;
 
-//   // You can perform actions based on the user's data
-//   res.json({ message: `Welcome, ${user.username}! This is a protected route.` });
-// });
+  res.status(200).json({ message: `Welcome, ${user}! This is a protected route.`, data: user });
+});
 
 
 // Start the server
