@@ -11,7 +11,7 @@ const checkLikeStatus = async (req, res) => {
         message: "Invalid request, it requires postId and userId",
       };
     }
-    const like = await Like.find({ postId : postId, userId : userId });
+    const like = await Like.findOne({ postId : postId, userId : userId });
 
     const likeStatus = like ? true : false;
     res.status(203).json({ message: "Got like status", data: likeStatus });

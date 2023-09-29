@@ -9,9 +9,9 @@ const passport = require("passport");
 const app = express();
 
 // Set up middleware
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
 app.use(passport.initialize());
 
 // Connect to MongoDB using Mongoose
@@ -29,7 +29,7 @@ app.use("/api/upload", require("./routes/uploadRoutes")); // to upload avatar ma
 app.use("/api/posts", require("./routes/postRoutes"));
 app.use("/api/profile", require("./routes/profileRoutes"));
 app.use("/api/likes", require("./routes/likeRoutes"));
-app.use("/api/follows", require("./routes/followRoutes"));
+// app.use("/api/follows", require("./routes/followRoutes"));
 app.use("/api/comments", require("./routes/commentRoutes"));
 // Add more routes as needed
 
@@ -39,15 +39,15 @@ app.get("/", (req, res) => {
 });
 
 // Import your passport instance and JWT_SECRET
-// ...
+// // ...
 
-app.get('/api/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
-  // Access the user information from the request
-  const user = req.user;
+// app.get('/api/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+//   // Access the user information from the request
+//   const user = req.user;
 
-  // You can perform actions based on the user's data
-  res.json({ message: `Welcome, ${user.username}! This is a protected route.` });
-});
+//   // You can perform actions based on the user's data
+//   res.json({ message: `Welcome, ${user.username}! This is a protected route.` });
+// });
 
 
 // Start the server

@@ -6,6 +6,7 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import api from "../../api/axios";
+import FollowButton from "../Follows/FollowButton";
 
 
 export default function ProfileCard({ user }) {
@@ -47,9 +48,9 @@ export default function ProfileCard({ user }) {
             </div>
           </div>
             <div className="flex my-2 w-auto flex-col">
-              <div className="flex-wrap w-auto" variant="outlined"   >
+              <div className="flex w-44" variant="outlined"   >
                 <Link to={`/user/${user._id}`}><Button variant="outlined" color="white" size="sm" ripple={false} className='w-auto'>View</Button></Link>
-                <Button variant="outlined" color="white" size="sm" ripple={false} className='w-auto ml-4' onClick={handleToggle}>{isFollowing ? 'Unfollow' : 'Follow'}</Button>
+                <FollowButton userId={user._id}/>
               </div>
             </div>
           </div>

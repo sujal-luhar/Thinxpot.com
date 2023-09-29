@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const router = express.Router();
 const {
   fetchUserLikes
@@ -12,5 +13,6 @@ router.get(
   fetchUserLikes
 );
 
+app.use("/follow", require("../routes/followRoutes"));
 
 module.exports = router;
