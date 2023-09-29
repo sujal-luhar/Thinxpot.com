@@ -33,7 +33,7 @@ import {
 const profileMenuItems = [
   {
     label: "My Profile",
-    link: "/user/64f7173ecaa7ceedd35b3872",
+    link: "/user/6515022a0b6815c3dff39aeb",
     icon: UserCircleIcon,
   },
   {

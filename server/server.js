@@ -37,6 +37,18 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Research Collaboration API!");
 });
 
+// Import your passport instance and JWT_SECRET
+// ...
+
+app.get('/api/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+  // Access the user information from the request
+  const user = req.user;
+
+  // You can perform actions based on the user's data
+  res.json({ message: `Welcome, ${user.username}! This is a protected route.` });
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -35,6 +35,9 @@ const userSchema = new Schema(
     bio: {
       type: String,
     },
+    profilePhoto: {
+      type: String,
+    },
     address: {
       type: String,
     },

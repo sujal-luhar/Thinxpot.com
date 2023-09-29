@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PostSingle from '../Posts/PostSingle';
 import axios from 'axios';
+import api from "../../api/axios";
+
 
 function ProfileLikes() {
 

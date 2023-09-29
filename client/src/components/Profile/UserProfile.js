@@ -3,22 +3,34 @@ import { ButtonGroup, Link, Button } from "@material-tailwind/react";
 import EditProfile from './EditProfile';
 import PostSingle from '../Posts/PostSingle';
 import PostList from '../Posts/PostList';
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import api from '../../api/axios';
 
-function UserProfile({ userId }) {
+function UserProfile() {
+  const { userId } = useParams();
   const [userProfile, setUserProfile] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
-    // Fetch the user's profile data by userId from your backend API
-    // Example API request:
-    // fetch(`/api/profiles/${userId}`)
-    //   .then(response => response.json())
-    //   .then(data => setUserProfile(data));
+    api
+      .get(`/api/users/${userId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const userProfileData = response.data.user;
+          setUserProfile(userProfileData);
+        } else {
+          console.error("Failed to fetch user profile data");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user profile data:", error);
+      });
   }, [userId]);
 
-  // if (!userProfile) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!userProfile) {
+    return <div>Loading...</div>;
+  }
 
   const handleToggle = () => {
     setIsFollowing(!isFollowing); // Toggle the state
@@ -54,56 +66,65 @@ function UserProfile({ userId }) {
                       <Button className="bg-black hover:bg-gray-900 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button" onClick={handleToggle}>
                         {isFollowing ? 'Unfollow' : 'Follow'}
                       </Button>
-                      <EditProfile />
+                      <EditProfile userId={userId} />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                      <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                        <div className="mr-4 p-3 text-center">
-                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span className="text-sm text-blueGray-400">Followers</span>
-                        </div>
-                        <div className="mr-4 p-3 text-center">
-                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span className="text-sm text-blueGray-400">Papers</span>
-                        </div>
-                        <div className="lg:mr-4 p-3 text-center">
-                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">89</span><span className="text-sm text-blueGray-400">Comments</span>
-                        </div>
+                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                      <div className="mr-4 p-3 text-center">
+                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span className="text-sm text-blueGray-400">Followers</span>
                       </div>
+                      <div className="mr-4 p-3 text-center">
+                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span className="text-sm text-blueGray-400">Posts</span>
+                      </div>
+                      <div className="lg:mr-4 p-3 text-center">
+                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">89</span><span className="text-sm text-blueGray-400">Comments</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-0.25">
-                    Sujal Luhar
+                    {userProfile.first_name} {userProfile.last_name}
                   </h3>
                   <div className='text-blueGray-400 mb-4'>
-                    @SujalLuhar
+                    @{userProfile.username}
                   </div>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                    Los Angeles, California
+                    {userProfile.location &&
+                      <>
+                        <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+                        {userProfile.location}
+                      </>
+                    }
                   </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>CEO - Creative Luhar Officer
+                    {userProfile.affiliation && <><i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>{userProfile.affiliation}</>}
                   </div>
                   <div className="mb-2 text-blueGray-600">
-                    <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>University of Oxford - Computer Science
+                    {userProfile.education && <><i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>{userProfile.education}</>}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
-                      <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+                      {userProfile.bio &&
+                        <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+                          {userProfile.bio}
+                        </p>
+                      }
+                      {/* <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
                         An artist of considerable range, Jenna the name taken by
                         Melbourne-raised, Brooklyn-based Nick Murphy writes,
                         performs and records all of his own music, giving it a
                         warm, intimate feel with a solid groove structure. An
                         artist of considerable range.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                   <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
                     <div className="flex-wrap w-auto gap-4 flex justify-center">
-                    <a href='/user/:userId/Likes'><Button size="sm" className='w-40'>Likes</Button></a>
+                      <a href='/user/:userId/Likes'><Button size="sm" className='w-40'>Likes</Button></a>
                       <a href='/user/:userId/Followers'><Button size="sm" className='w-40'>Followers</Button></a>
                       <a href='/user/:userId/Following'><Button size="sm" className='w-40'>Following</Button></a>
                     </div>

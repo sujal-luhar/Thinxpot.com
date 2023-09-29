@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { formatDistanceToNow, format } from 'date-fns';
 import { enIN } from 'date-fns/locale'; // You can use a different locale if needed
+import api from "../../api/axios";
 
 function PostDetail() {
   const { postId } = useParams();
@@ -14,16 +15,21 @@ function PostDetail() {
   const targetBlockRef = useRef(null);
 
   useEffect(() => {
-    //   // Fetch the specific post by postId from your backend API
-    axios.get(`/api/posts/${postId}`) // Replace with your API endpoint
+    api
+      .get(`/api/posts/${postId}`)
       .then((response) => {
-        setPost(response.data); // Update the state with the retrieved data
+        if (response && response.data && response.data.data) {
+          setPost(response.data.data);
+        } else {
+          console.error("Invalid or empty response data");
+        }
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error fetching post:", error);
+        // You can also set an error state here to display to the user.
       });
   }, [postId]);
-
+  
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -59,16 +65,23 @@ function PostDetail() {
   function formatCreatedAt(createdAt) {
     const currentDate = new Date();
     const createdAtDate = new Date(createdAt);
-  
+
     // Check if the post was created within the last 24 hours
     if (currentDate - createdAtDate < 24 * 60 * 60 * 1000) {
-      return formatDistanceToNow(createdAtDate, { addSuffix: true, locale: enIN });
+      return formatDistanceToNow(createdAtDate, {
+        addSuffix: true,
+        locale: enIN,
+      });
     } else {
-      return format(createdAtDate, 'd MMMM', { locale: enIN });
+      return format(createdAtDate, "d MMMM", { locale: enIN });
     }
   }
 
-  const postCreatedAt = formatCreatedAt(post.createdAt); 
+  const postCreatedAt = post ? formatCreatedAt(post.createdAt) : ""; // Check if 'post' is not null
+
+  if (!post) {
+    return null; // Return null if 'post' is still null
+  }
 
   return (
     <div className='pl-64 pr-64'>

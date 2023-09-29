@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from "../../api/axios";
 
 // function LikeButton({ postId }) {
 function LikeButton() {

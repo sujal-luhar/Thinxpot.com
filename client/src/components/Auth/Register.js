@@ -8,6 +8,8 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import api from "../../api/axios";
+
 
 function Register() {
   const [first_name, setFirstName] = useState('');

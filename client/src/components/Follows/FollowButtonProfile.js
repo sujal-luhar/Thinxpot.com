@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import api from "../../api/axios";
+
 
 function FollowButtonProfile({ userId }) {
   const [following, setFollowing] = useState(false);

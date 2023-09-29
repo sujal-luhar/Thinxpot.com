@@ -4,8 +4,12 @@ const {
   createPost,
   getAllPostsOfSingleUser,
   getPostsById,
+  checkLikeStatus, 
+  createLike,
+  removeLike
 } = require("../controllers/postController");
 const { passport } = require("../middlewares/passport");
+const { create } = require("../models/user");
 
 // Define routes that use controller functions
 router.post(
@@ -23,4 +27,27 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   getPostsById
 );
+
+
+// Adding more routes for other post-related actions
+
+//Like routes
+router.get(
+  "/:postId/likes/:userId",
+  passport.authenticate("jwt", { session: false }),
+  checkLikeStatus
+);
+router.post(
+  "/:postId/likes",
+  passport.authenticate("jwt", { session: false }),
+  createLike
+);
+router.delete(
+  "/:postId/likes/:userId",
+  passport.authenticate("jwt", { session: false }),
+  removeLike
+);
+
+
+
 module.exports = router;

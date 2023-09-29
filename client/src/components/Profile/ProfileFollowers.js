@@ -4,6 +4,8 @@ import {
   Button,
   Input
 } from "@material-tailwind/react";
+import api from "../../api/axios";
+
 
 export default function ProfileFollowers() {
   const [search, setSearch] = useState('');

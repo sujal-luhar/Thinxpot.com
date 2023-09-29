@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Textarea } from '@material-tailwind/react';
+import api from "../../api/axios";
+
 
 function CommentForm({ postId }) {
   const [text, setComment] = useState('');

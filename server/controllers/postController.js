@@ -28,7 +28,7 @@ const createPost = async (req, res) => {
 const getAllPostsOfSingleUser = async (req, res) => {
   try {
     const user = req.user;
-    const findAllPosts = await Post.find({ authorId: user._id });
+    const findAllPosts = await Post.find({ authorId: user._id }).sort({createdAt: -1});
     const data = findAllPosts.map((x) => ({
       _id: x._id,
       title: x.title,
@@ -41,7 +41,7 @@ const getAllPostsOfSingleUser = async (req, res) => {
   } catch (error) {
     return res
       .status(400)
-      .json({ error: "Failed to get posts", details: err.message });
+      .json({ error: "Failed to get posts", details: error.message });
   }
 };
 
@@ -73,8 +73,89 @@ const getPostsById = async (req, res) => {
   } catch (error) {
     return res
       .status(400)
-      .json({ error: "Failed to get post", details: err.message });
+      .json({ error: "Failed to get post", details: error.message });
   }
 };
 
-module.exports = { createPost, getAllPostsOfSingleUser, getPostsById };
+const checkLikeStatus = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+    if (!postId || !userId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId and userId",
+      };
+    }
+    const post = await Post.findById(postId);
+    if (!post) {
+      return {
+        status: 404,
+        message: "Requested post not found",
+      };
+    }
+    const likeStatus = post.likes.includes(userId);
+    res.status(203).json({ message: "Got like status", data: likeStatus });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get like status", details: error.message });
+  }
+};
+
+const createLike = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.body.userId;
+    if (!postId || !userId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId and userId",
+      };
+    }
+   // code to make new like document in mongo db
+
+    res.status(201).json({ message: "Post liked successfully", post });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to like post", details: error.message });
+  }
+};
+
+const removeLike = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+    if (!postId || !userId) {
+      return {
+        status: 400,
+        message: "Invalid request, it requires postId and userId",
+      };
+    }
+    const post = await Post.findById(postId);
+    if (!post) {
+      return {
+        status: 404,
+        message: "Requested post not found",
+      };
+    }
+    const likeStatus = post.likes.includes(userId);
+    if (!likeStatus) {
+      return {
+        status: 400,
+        message: "You have not liked this post",
+      };
+    }
+    const index = post.likes.indexOf(userId);
+    post.likes.splice(index, 1);
+    await post.save();
+    res.status(201).json({ message: "Post unliked successfully", post });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to unlike post", details: error.message });
+  }
+};
+
+module.exports = { createPost, getAllPostsOfSingleUser, getPostsById, checkLikeStatus, createLike, removeLike };

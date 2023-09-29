@@ -165,4 +165,41 @@ const edit = async (req, res) => {
   }
 };
 
-module.exports = { register, login, verifyEmail, logout, edit };
+const searchUsers = async (req, res) => {
+  try {
+    const { search } = req.query;
+    const users = await User.find({
+      $or: [
+        { first_name: { $regex: search, $options: "i" } },
+        { last_name: { $regex: search, $options: "i" } },
+        { username: { $regex: search, $options: "i" } },
+      ],
+    });
+
+    if (users.length === 0) {
+      return res.status(204).json({ message: 'No users found' });
+    }
+
+    res.status(200).json({ message: "Got all users", users });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get users", details: error.message });
+  }
+}
+
+const getUserData = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "Got user data", user });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Failed to get user xyz  ", details: error.message });
+  }
+}
+
+module.exports = { register, login, verifyEmail, logout, edit, searchUsers, getUserData };

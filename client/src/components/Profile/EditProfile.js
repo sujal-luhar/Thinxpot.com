@@ -11,12 +11,15 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import axios from 'axios';
+import api from '../../api/axios';
 
 function EditProfile({ userId }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
-  userId = '65142f79b7842cf7f018dd7a'
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  // userId = '65142f79b7842cf7f018dd7a'
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [location, setLocation] = useState('');
@@ -33,7 +36,7 @@ function EditProfile({ userId }) {
 
     // Add logic to send updated profile data to your backend
     // Example API request:
-    await axios.put(`/api/users/${userId}/editprofile`, {
+    await api.put(`/api/users/${userId}/editprofile`, {
       first_name,
       last_name,
       location,
@@ -53,20 +56,33 @@ function EditProfile({ userId }) {
         setBio('');
       })
       .catch((error) => console.error(error));
-
-
-    // fetch(`/api/users/${userId}/editprofile`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(userData),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     // Handle successful update
-    //   });
   };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('profilePhoto', selectedFile);
+      formData.append('userId', userId); // Send the user's ID along with the file
+
+      await api.post('/api/upload/ProfilePhoto', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Handle success, e.g., show a success message
+      console.log('Profile photo uploaded successfully');
+    } catch (error) {
+      // Handle error, e.g., show an error message
+      console.error('Error uploading profile photo:', error);
+    }
+  };
+  
 
   return (
     <>
@@ -91,9 +107,9 @@ function EditProfile({ userId }) {
                 <img class="h-20 w-20 object-cover rounded-full" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" alt="Current profile photo" />
               </div>
 
-              <Button className='w-40'><label htmlFor='avatarUpload' className="block">Change Avatar</label></Button>
+              <Button onClick={handleUpload} className='w-40'><label htmlFor='avatarUpload' className="block">Change Avatar</label></Button>
 
-              <input id="avatarUpload" type="file" style={{ display: "none" }} />
+              <input id="avatarUpload" type="file" name="profilePhoto" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
 
               <Input size="lg" label="Firstname" onChange={(e) => setFirstName(e.target.value)} />
               <Input size="lg" label="Lastname" onChange={(e) => setLastName(e.target.value)} />

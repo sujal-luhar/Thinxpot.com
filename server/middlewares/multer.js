@@ -1,20 +1,16 @@
-// uploadMiddleware.js
-
 const multer = require('multer');
+const path = require('path');
 
-// Define storage settings for uploaded files
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Specify the directory where uploaded files will be stored
-    cb(null, 'uploads/'); // You can create an 'uploads' directory in your project root
+    cb(null, 'uploads/'); // Destination folder where uploaded files will be stored
   },
   filename: (req, file, cb) => {
-    // Set the filename of the uploaded file
-    cb(null, Date.now() + '-' + file.originalname);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'profile' + '-' + uniqueSuffix + path.extname(file.originalname));
   },
 });
 
-// Create a Multer instance with the specified storage settings
 const upload = multer({ storage });
 
 module.exports = upload;

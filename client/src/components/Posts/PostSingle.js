@@ -20,12 +20,18 @@ function PostSingle({ postId }) {
     api
       .get(`/api/posts/${postId}`)
       .then((response) => {
-        setPost(response?.data?.data);
+        if (response && response.data && response.data.data) {
+          setPost(response.data.data);
+        } else {
+          console.error("Invalid or empty response data");
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching post:", error);
+        // You can also set an error state here to display to the user.
       });
   }, [postId]);
+  
 
   function formatCreatedAt(createdAt) {
     const currentDate = new Date();
@@ -42,8 +48,11 @@ function PostSingle({ postId }) {
     }
   }
 
-  const postCreatedAt = formatCreatedAt(post.createdAt); // Assuming 'post' is your data object
+  const postCreatedAt = post ? formatCreatedAt(post.createdAt) : ""; // Check if 'post' is not null
 
+  if (!post) {
+    return null; // Return null if 'post' is still null
+  }
   return (
     <div className="pl-64 pr-64">
       <div class="flex flex-shrink-0 p-4 pb-0">
