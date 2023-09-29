@@ -23,6 +23,7 @@ function Login() {
           const token = response?.data?.token;
           localStorage.setItem("jwtToken", token);
           navigate("/");
+          window.location.reload()
         } else {
           // Handle login error, show an error message, etc.
           console.error("Login failed");

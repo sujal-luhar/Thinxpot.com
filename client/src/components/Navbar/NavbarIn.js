@@ -92,7 +92,7 @@ function ProfileMenu() {
       <MenuList className="p-1">
 
 
-        <Link to={`/user/${userId}`}>
+        <Link to={`/user/6515022a0b6815c3dff39aeb`}>
 
           <MenuItem
             key={'My Profile'}
@@ -198,7 +198,7 @@ function NavList() {
   );
 }
 
-export default function ComplexNavbar() {
+export default function NavbarIn() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
 
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);

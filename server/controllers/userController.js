@@ -125,6 +125,7 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Oops! wrong password entered." });
     }
     const token = await generateToken(user._id);
+    
     res.status(200).json({ message: "Login successful", token: token });
   } catch (err) {
     return res.status(500).json({ error: "Server error" });

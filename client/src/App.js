@@ -22,7 +22,7 @@ function App() {
   return (
     <div>
       <Router>
-      {localStorage.getItem("jwtToken") ? <NavbarIn /> : <StickyNavbar />}
+      {localStorage.getItem("jwtToken") ?  <NavbarIn /> : <StickyNavbar />}
       {/* {user ? <NavbarIn /> : <StickyNavbar />} */}
         <Routes>
           <Route element={<PrivateRoutes />}>
