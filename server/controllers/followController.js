@@ -109,10 +109,10 @@ const getFollowers = async (req, res) => {
       "username first_name last_name education location affiliation"
     );
     const data = followList.map((x) => ({
-      followingId: x.followingId,
-      username: x.followingId.username,
+      followingId: x.followerId,
+      username: x.followerId.username,
       profession: x.followerId.affiliation,
-      education: x.followingId.education,
+      education: x.followerId.education,
       first_name: x.followerId.first_name,
       last_name: x.followerId.last_name,
       location: x.followerId.location,
@@ -141,16 +141,17 @@ const getFollowing = async (req, res) => {
 
     const followList = await Follow.find({ followerId: followerId }).populate(
       "followingId",
-      "username first_name last_name education location affiliation"
+      "username first_name last_name education location affiliation _id"
     );
     const data = followList.map((x) => ({
+      _id : x.followingId._id,
       followingId: x.followingId,
       username: x.followingId.username,
-      profession: x.followerId.affiliation,
+      affiliation: x.followingId.affiliation,
       education: x.followingId.education,
-      first_name: x.followerId.first_name,
-      last_name: x.followerId.last_name,
-      location: x.followerId.location,
+      first_name: x.followingId.first_name,
+      last_name: x.followingId.last_name,
+      location: x.followingId.location,
     }));
 
     if (followList.length === 0) {
