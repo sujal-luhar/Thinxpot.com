@@ -93,9 +93,9 @@ function PostDetail() {
             </div>
             <div className="ml-4 float-left">
               <p className="text-base leading-6 font-medium text-black">
-                Sujal Luhar
+              {post.authorFName} {post.authorLName}
                 <span className="text-sm ml-2 leading-5 font-medium text-gray-600 group-hover:text-gray-500 transition ease-in-out duration-150">
-                  @SujalLuhar . {postCreatedAt}
+                @{post.authorName} . {postCreatedAt}
                 </span>
               </p>
             </div>
@@ -156,7 +156,7 @@ function PostDetail() {
                 </a>
               </div>
 
-              <LikeButton postId={post._id}/>
+              <LikeButton postId={postId}/>
 
               <div class="flex-1 text-center py-2 m-2">
                 <a href="#" class="w-12 mt-1 group flex items-center text-gray-700 px-3 py-2 text-base leading-6 font-medium rounded-[5px] hover:bg-gray-100 hover:text-gray-600">

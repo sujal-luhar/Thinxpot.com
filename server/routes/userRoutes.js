@@ -33,6 +33,11 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   fetchUserLikes
 );
+router.get("/search", searchUsers);
+router.get("/:userId", getUserData);
+
+// place it to profileRoutes.js
+router.put("/:userId/editprofile", edit);
 // Add more routes and controllers as needed
 
 module.exports = router;

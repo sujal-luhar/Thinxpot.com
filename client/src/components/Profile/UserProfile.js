@@ -5,6 +5,7 @@ import PostSingle from "../Posts/PostSingle";
 import PostList from "../Posts/PostList";
 import { useParams, Link } from "react-router-dom";
 import api from "../../api/axios";
+import FollowButtonProfile from "../Follows/FollowButtonProfile";
 
 function UserProfile() {
   const [userProfile, setUserProfile] = useState(null);
@@ -103,6 +104,9 @@ function UserProfile() {
                         {isFollowing ? "Unfollow" : "Follow"}
                       </Button>
                       <EditProfile />
+                    <div className="flex flex-row justify-end py-6 px-3 mt-32 sm:mt-0">
+                      <FollowButtonProfile userId={userId}/>
+                      <EditProfile userId={userId} />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">

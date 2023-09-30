@@ -50,6 +50,11 @@ function CreatePost() {
   return (
     <>
       <center>
+      {showAlert && (
+        <Alert severity="success">
+          <strong>Post Created Successfully. Please check it out!</strong>
+        </Alert>
+      )}
         <form className="mt-28 mb-4 w-screen max-w-screen-lg sm:w-96">
           <div className="mb-4 flex w-full flex-col gap-6">
             <div class="shrink-0 mt-5 flex justify-center">
@@ -101,11 +106,6 @@ function CreatePost() {
           </Button>
         </form>
       </center>
-      {showAlert && (
-        <Alert severity="success">
-          <strong>Post Created Successfully. Please check it out!</strong>
-        </Alert>
-      )}
     </>
   );
 }

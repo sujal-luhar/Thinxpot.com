@@ -3,7 +3,7 @@ import PostDescription from "./PostDescription";
 import LikeButton from "../Likes/LikeButton";
 import CommentForm from "../Comments/CommentForm";
 import { Link } from "react-router-dom";
-import { formatDistanceToNow, format } from "date-fns";
+import { formatDistanceToNow, format, set } from "date-fns";
 import { enIN } from "date-fns/locale"; // You can use a different locale if needed
 import api from "../../api/axios";
 
@@ -66,9 +66,9 @@ function PostSingle({ postId, username, fullname }) {
             </div>
             <div class="ml-4 float-left">
               <p class="text-base leading-6 font-medium text-black">
-                {fullname}
+                {post.authorFName} {post.authorLName}
                 <span class="text-sm ml-2 leading-5 font-medium text-gray-600 group-hover:text-gray-500 transition ease-in-out duration-150">
-                  @{username} . {postCreatedAt}
+                  @{post.authorName} . {postCreatedAt}
                 </span>
               </p>
             </div>
