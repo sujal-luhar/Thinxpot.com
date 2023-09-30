@@ -8,7 +8,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import api from "../../api/axios";
+import jwtDecode from "jwt-decode";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -22,8 +22,10 @@ function Login() {
           // Login was successful, you can redirect the user or update the UI
           const token = response?.data?.token;
           localStorage.setItem("jwtToken", token);
+          const decodeToken = jwtDecode(token);
+          localStorage.setItem("userId", decodeToken._id);
           navigate("/");
-          window.location.reload()
+          window.location.reload();
         } else {
           // Handle login error, show an error message, etc.
           console.error("Login failed");

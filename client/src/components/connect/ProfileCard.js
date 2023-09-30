@@ -10,6 +10,21 @@ export default function ProfileCard({ user }) {
   const handleToggle = () => {
     setIsFollowing(!isFollowing); // Toggle the state
   };
+  const handleView = (userId) => {
+    try {
+      api
+        .get(`/api/users/${userId}`)
+        .then((response) => {
+          if (response.status === 200) {
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.error("Error checking like status:", error);
+    }
+  };
   //handling user fetching
   return (
     <div className="flex flex-col">
@@ -62,13 +77,16 @@ export default function ProfileCard({ user }) {
             </div>
             <div className="flex my-2 w-auto flex-col">
               <div className="flex w-44" variant="outlined">
-                <Link to={`/user/${user._id}`}>
+                <Link to={`/user/profile/${user._id}`}>
                   <Button
                     variant="outlined"
                     color="white"
                     size="sm"
                     ripple={false}
                     className="w-auto"
+                    onClick={() => {
+                      handleView(user._id);
+                    }}
                   >
                     View
                   </Button>

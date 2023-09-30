@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const Like = require("../models/like");
+const Follow = require("../models/follow");
 
 const createPost = async (req, res) => {
   try {
@@ -29,7 +30,9 @@ const createPost = async (req, res) => {
 const getAllPostsOfSingleUser = async (req, res) => {
   try {
     const user = req.user;
-    const findAllPosts = await Post.find({ authorId: user._id }).sort({createdAt: -1});
+    const findAllPosts = await Post.find({ authorId: user._id }).sort({
+      createdAt: -1,
+    });
     const data = findAllPosts.map((x) => ({
       _id: x._id,
       title: x.title,
@@ -88,7 +91,7 @@ const checkLikeStatus = async (req, res) => {
         message: "Invalid request, it requires postId and userId",
       };
     }
-    const like = await Like.find({ postId : postId, userId : userId });
+    const like = await Like.find({ postId: postId, userId: userId });
 
     const likeStatus = like ? true : false;
     res.status(203).json({ message: "Got like status", data: likeStatus });
@@ -109,7 +112,6 @@ const createLike = async (req, res) => {
         message: "Invalid request, it requires postId and userId",
       };
     }
-   
     const like = await new Like({ postId: postId, userId: userId });
     await like.save();
 
@@ -131,14 +133,14 @@ const removeLike = async (req, res) => {
         message: "Invalid request, it requires postId and userId",
       };
     }
-    const like = await Like.deleteOne({ postId: postId, userId: userId })
+    const like = await Like.deleteOne({ postId: postId, userId: userId });
     if (!like) {
       return {
         status: 404,
         message: "Requested post not found",
       };
     }
-    
+
     res.status(201).json({ message: "Post unliked successfully", like });
   } catch (error) {
     return res
@@ -147,4 +149,37 @@ const removeLike = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPostsOfSingleUser, getPostsById, checkLikeStatus, createLike, removeLike };
+const homePagePosts = async (req, res) => {
+  try {
+    console.log("code touches");
+    const user = req.user._id;
+    const followingList = await Follow.find({ followerId: user._id }).lean();
+    const follwingListIds = followingList.map((x) => x["followingId"]);
+    follwingListIds.push(user._id);
+    const findAllPosts = await Post.find({ authorId: { $in: followingList } });
+
+    const udpate = findAllPosts.map((x) => ({
+      _id: x._id,
+      title: x.title,
+      subject: x.subject,
+      content: x.content,
+      pdfLink: x.pdfLink,
+    }));
+  } catch (error) {
+    return res.status(400).json({
+      error: "Failed to fetch all posts for homepage",
+      details: error.message,
+    });
+  }
+  //Brings all post who he follows including him.
+};
+
+module.exports = {
+  homePagePosts,
+  createPost,
+  getAllPostsOfSingleUser,
+  getPostsById,
+  checkLikeStatus,
+  createLike,
+  removeLike,
+};

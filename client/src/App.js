@@ -31,8 +31,8 @@ function App() {
             <Route path="/postdetail/:postId" element={<PostDetail />} />
             <Route path="/postlist" element={<PostList />} />
             <Route path="/create" element={<CreatePost />} />
-            <Route path="/user/:userId" element={<UserProfile />} />
-            <Route path="/user/:userId/Likes" element={<ProfileLikes />} />
+            <Route path="/user/profile/:id" element={<UserProfile />} />
+            <Route path="/user/Likes/:id" element={<ProfileLikes />} />
             <Route path="/user/Followers" element={<ProfileFollowers />} />
             <Route path="/user/Following" element={<ProfileFollowing />} />
             <Route path="/connect" element={<Connect />} />

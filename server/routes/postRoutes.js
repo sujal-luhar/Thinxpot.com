@@ -4,15 +4,15 @@ const {
   createPost,
   getAllPostsOfSingleUser,
   getPostsById,
+  homePagePosts,
 } = require("../controllers/postController");
 const {
-  checkLikeStatus, 
+  checkLikeStatus,
   createLike,
   removeLike,
-} = require("../controllers/likeController")
+} = require("../controllers/likeController");
 
 const { passport } = require("../middlewares/passport");
-const { create } = require("../models/user");
 
 // Define routes that use controller functions
 router.post(
@@ -30,7 +30,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   getPostsById
 );
-
 
 // Adding more routes for other post-related actions
 
@@ -51,6 +50,10 @@ router.delete(
   removeLike
 );
 
-
+router.get(
+  "/homepage",
+  passport.authenticate("jwt", { session: false }),
+  homePagePosts
+);
 
 module.exports = router;

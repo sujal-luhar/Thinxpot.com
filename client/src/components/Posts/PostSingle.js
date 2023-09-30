@@ -7,7 +7,7 @@ import { formatDistanceToNow, format } from "date-fns";
 import { enIN } from "date-fns/locale"; // You can use a different locale if needed
 import api from "../../api/axios";
 
-function PostSingle({ postId }) {
+function PostSingle({ postId, username, fullname }) {
   const [post, setPost] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
@@ -31,7 +31,6 @@ function PostSingle({ postId }) {
         // You can also set an error state here to display to the user.
       });
   }, [postId]);
-  
 
   function formatCreatedAt(createdAt) {
     const currentDate = new Date();
@@ -67,9 +66,9 @@ function PostSingle({ postId }) {
             </div>
             <div class="ml-4 float-left">
               <p class="text-base leading-6 font-medium text-black">
-                Sujal Luhar
+                {fullname}
                 <span class="text-sm ml-2 leading-5 font-medium text-gray-600 group-hover:text-gray-500 transition ease-in-out duration-150">
-                  @SujalLuhar . {postCreatedAt}
+                  @{username} . {postCreatedAt}
                 </span>
               </p>
             </div>
@@ -122,7 +121,7 @@ function PostSingle({ postId }) {
                 </a>
               </div>
 
-              <LikeButton postId={postId}/>
+              <LikeButton postId={postId} />
 
               <div class="flex-1 text-center py-2 m-2">
                 <a

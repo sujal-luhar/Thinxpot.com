@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   MobileNav,
@@ -31,23 +31,9 @@ import {
 import api from "../../api/axios";
 
 function ProfileMenu() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [userId, setUser] = React.useState(null);
-
-  React.useEffect(() => {
-    api
-      .get(`/api/userId`)
-      .then((response) => {
-        if (response.data) {
-          setUser(response.data);
-        } else {
-          console.error("Invalid or empty response (userId) data");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching post:", error);
-      });
-  }, []);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const navigate = useNavigate();
 
   // profile menu component
   const profileMenuItems = [
@@ -63,7 +49,9 @@ function ProfileMenu() {
     },
   ];
 
-  const closeMenu = () => setIsMenuOpen(false);
+  const closeMenu = async () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -89,7 +77,7 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        <Link to={`/user/6515022a0b6815c3dff39aeb`}>
+        <Link to={`/user/profile/${userId}`}>
           <MenuItem
             key={"My Profile"}
             onClick={closeMenu}

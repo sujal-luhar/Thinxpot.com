@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { ButtonGroup, Button } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import EditProfile from "./EditProfile";
 import PostSingle from "../Posts/PostSingle";
 import PostList from "../Posts/PostList";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import api from "../../api/axios";
 
 function UserProfile() {
-  const { userId } = useParams();
   const [userProfile, setUserProfile] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
-
+  let user = useParams();
+  const userId = user.id;
   useEffect(() => {
     api
       .get(`/api/users/${userId}`)
@@ -26,7 +25,7 @@ function UserProfile() {
       .catch((error) => {
         console.error("Error fetching user profile data:", error);
       });
-  }, [userId]);
+  }, []);
 
   if (!userProfile) {
     return <div>Loading...</div>;
@@ -103,7 +102,7 @@ function UserProfile() {
                       >
                         {isFollowing ? "Unfollow" : "Follow"}
                       </Button>
-                      <EditProfile userId={userId} />
+                      <EditProfile />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
@@ -184,7 +183,7 @@ function UserProfile() {
                   </div>
                   <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
                     <div className="flex-wrap w-auto gap-4 flex justify-center">
-                      <Link to={`/user/${userId}/Likes`}>
+                      <Link to={`/user/likes/${userId}`}>
                         <Button size="sm" className="w-40">
                           Likes
                         </Button>
@@ -205,7 +204,12 @@ function UserProfile() {
               </div>
               <hr class="border-gray-400"></hr>
               <div className="px-6">
-                <PostList />
+                <PostList
+                  fullname={
+                    userProfile.first_name + " " + userProfile.last_name
+                  }
+                  username={userProfile.username}
+                />
               </div>
             </div>
           </div>

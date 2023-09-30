@@ -125,7 +125,7 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Oops! wrong password entered." });
     }
     const token = await generateToken(user._id);
-    
+
     res.status(200).json({ message: "Login successful", token: token });
   } catch (err) {
     return res.status(500).json({ error: "Server error" });
@@ -148,7 +148,7 @@ const edit = async (req, res) => {
   // Create a new Post instance
 
   try {
-    const newUserData = await User.findByIdAndUpdate(req.params.userId, {
+    const newUserData = await User.findByIdAndUpdate(req.user, {
       $set: {
         first_name,
         last_name,
@@ -178,7 +178,7 @@ const searchUsers = async (req, res) => {
     });
 
     if (users.length === 0) {
-      return res.status(204).json({ message: 'No users found' });
+      return res.status(204).json({ message: "No users found" });
     }
 
     res.status(200).json({ message: "Got all users", users });
@@ -187,11 +187,12 @@ const searchUsers = async (req, res) => {
       .status(400)
       .json({ error: "Failed to get users", details: error.message });
   }
-}
+};
 
 const getUserData = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId);
+    const requestedUser = req.params.id;
+    const user = await User.findById(requestedUser);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -201,6 +202,14 @@ const getUserData = async (req, res) => {
       .status(400)
       .json({ error: "Failed to get user", details: error.message });
   }
-}
+};
 
-module.exports = { register, login, verifyEmail, logout, edit, searchUsers, getUserData };
+module.exports = {
+  register,
+  login,
+  verifyEmail,
+  logout,
+  edit,
+  searchUsers,
+  getUserData,
+};

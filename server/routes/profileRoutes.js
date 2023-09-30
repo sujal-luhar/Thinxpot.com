@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { fetchUserLikes } = require("../controllers/likeController");
 const { passport } = require("../middlewares/passport");
 const {
   createFollow,
@@ -9,12 +8,6 @@ const {
   getFollowing,
   getFollowers,
 } = require("../controllers/followController");
-
-router.get(
-  "/likes",
-  passport.authenticate("jwt", { session: false }),
-  fetchUserLikes
-);
 
 router.post(
   "/follow/:userId/create",
