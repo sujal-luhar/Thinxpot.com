@@ -104,116 +104,119 @@ function UserProfile() {
                         {isFollowing ? "Unfollow" : "Follow"}
                       </Button>
                       <EditProfile />
-                    <div className="flex flex-row justify-end py-6 px-3 mt-32 sm:mt-0">
-                      <FollowButtonProfile userId={userId}/>
-                      <EditProfile userId={userId} />
-                    </div>
-                  </div>
-                  <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          22
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Followers
-                        </span>
-                      </div>
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          10
-                        </span>
-                        <span className="text-sm text-blueGray-400">Posts</span>
-                      </div>
-                      <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          89
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Comments
-                        </span>
+                      <div className="flex flex-row justify-end py-6 px-3 mt-32 sm:mt-0">
+                        <FollowButtonProfile userId={userId} />
+                        <EditProfile userId={userId} />
                       </div>
                     </div>
+                    <div className="w-full lg:w-4/12 px-4 lg:order-1">
+                      <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                            22
+                          </span>
+                          <span className="text-sm text-blueGray-400">
+                            Followers
+                          </span>
+                        </div>
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                            10
+                          </span>
+                          <span className="text-sm text-blueGray-400">
+                            Posts
+                          </span>
+                        </div>
+                        <div className="lg:mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                            89
+                          </span>
+                          <span className="text-sm text-blueGray-400">
+                            Comments
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-0.25">
-                    {userProfile.first_name} {userProfile.last_name}
-                  </h3>
-                  <div className="text-blueGray-400 mb-4">
-                    @{userProfile.username}
-                  </div>
-                  <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                    {userProfile.location && (
-                      <>
-                        <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                        {userProfile.location}
-                      </>
-                    )}
-                  </div>
-                  <div className="mb-2 text-blueGray-600 mt-10">
-                    {userProfile.affiliation && (
-                      <>
-                        <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                        {userProfile.affiliation}
-                      </>
-                    )}
-                  </div>
-                  <div className="mb-2 text-blueGray-600">
-                    {userProfile.education && (
-                      <>
-                        <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                        {userProfile.education}
-                      </>
-                    )}
-                  </div>
-                </div>
-                <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
-                  <div className="flex flex-wrap justify-center">
-                    <div className="w-full lg:w-9/12 px-4">
-                      {userProfile.bio && (
-                        <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                          {userProfile.bio}
-                        </p>
+                  <div className="text-center mt-12">
+                    <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-0.25">
+                      {userProfile.first_name} {userProfile.last_name}
+                    </h3>
+                    <div className="text-blueGray-400 mb-4">
+                      @{userProfile.username}
+                    </div>
+                    <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+                      {userProfile.location && (
+                        <>
+                          <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+                          {userProfile.location}
+                        </>
                       )}
-                      {/* <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+                    </div>
+                    <div className="mb-2 text-blueGray-600 mt-10">
+                      {userProfile.affiliation && (
+                        <>
+                          <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+                          {userProfile.affiliation}
+                        </>
+                      )}
+                    </div>
+                    <div className="mb-2 text-blueGray-600">
+                      {userProfile.education && (
+                        <>
+                          <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
+                          {userProfile.education}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+                    <div className="flex flex-wrap justify-center">
+                      <div className="w-full lg:w-9/12 px-4">
+                        {userProfile.bio && (
+                          <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+                            {userProfile.bio}
+                          </p>
+                        )}
+                        {/* <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
                         An artist of considerable range, Jenna the name taken by
                         Melbourne-raised, Brooklyn-based Nick Murphy writes,
                         performs and records all of his own music, giving it a
                         warm, intimate feel with a solid groove structure. An
                         artist of considerable range.
                       </p> */}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
-                    <div className="flex-wrap w-auto gap-4 flex justify-center">
-                      <Link to={`/user/likes/${userId}`}>
-                        <Button size="sm" className="w-40">
-                          Likes
-                        </Button>
-                      </Link>
-                      <a href="/user/Followers">
-                        <Button size="sm" className="w-40">
-                          Followers
-                        </Button>
-                      </a>
-                      <a href="/user/Following">
-                        <Button size="sm" className="w-40">
-                          Following
-                        </Button>
-                      </a>
+                    <div className="flex w-full flex-col fullwidth flex-wrap justify-center gap-4">
+                      <div className="flex-wrap w-auto gap-4 flex justify-center">
+                        <Link to={`/user/likes/${userId}`}>
+                          <Button size="sm" className="w-40">
+                            Likes
+                          </Button>
+                        </Link>
+                        <a href="/user/Followers">
+                          <Button size="sm" className="w-40">
+                            Followers
+                          </Button>
+                        </a>
+                        <a href="/user/Following">
+                          <Button size="sm" className="w-40">
+                            Following
+                          </Button>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <hr class="border-gray-400"></hr>
-              <div className="px-6">
-                <PostList
-                  fullname={
-                    userProfile.first_name + " " + userProfile.last_name
-                  }
-                  username={userProfile.username}
-                />
+                <hr class="border-gray-400"></hr>
+                <div className="px-6">
+                  <PostList
+                    fullname={
+                      userProfile.first_name + " " + userProfile.last_name
+                    }
+                    username={userProfile.username}
+                  />
+                </div>
               </div>
             </div>
           </div>

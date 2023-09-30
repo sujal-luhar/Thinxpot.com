@@ -17,7 +17,6 @@ const getFollowStatus = async (req, res) => {
       followerId: followerId,
       followingId: followingId,
     });
-    console.log("Follow Found", follow);
     const followStatus = follow ? true : false;
     res.status(203).json({ message: "Got like status", data: followStatus });
   } catch (error) {
@@ -145,7 +144,7 @@ const getFollowing = async (req, res) => {
       "username first_name last_name education location affiliation _id"
     );
     const data = followList.map((x) => ({
-      _id : x.followingId._id,
+      _id: x.followingId._id,
       followingId: x.followingId,
       username: x.followingId.username,
       affiliation: x.followingId.affiliation,
@@ -194,18 +193,20 @@ const getFollowersCount = async (req, res) => {
     if (followList.length === 0) {
       res.status(200).end({ message: "You have zero followers" });
     }
-    res.status(201).json({ message: "Fetched Followers", data: followList.length }); 
+    res
+      .status(201)
+      .json({ message: "Fetched Followers", data: followList.length });
   } catch (error) {
     return res
       .status(400)
       .json({ error: "Failed to fetch Followers", details: error.message });
   }
-}
+};
 
 const searchFollowing = async (req, res) => {
   try {
     const { search } = req.query;
-    
+
     if (!followingId) {
       return {
         status: 400,
@@ -239,16 +240,16 @@ const searchFollowing = async (req, res) => {
     });
 
     if (users.length === 0) {
-      return res.status(204).json({ message: 'No users found' });
+      return res.status(204).json({ message: "No users found" });
     }
 
-    res.status(200).json({ message: "Got all users", data : following });
+    res.status(200).json({ message: "Got all users", data: following });
   } catch (error) {
     return res
       .status(400)
       .json({ error: "Failed to get users", details: error.message });
   }
-}
+};
 
 const searchFollowers = async (req, res) => {
   try {
@@ -262,7 +263,7 @@ const searchFollowers = async (req, res) => {
     });
 
     if (users.length === 0) {
-      return res.status(204).json({ message: 'No users found' });
+      return res.status(204).json({ message: "No users found" });
     }
 
     res.status(200).json({ message: "Got all users", users });
@@ -271,7 +272,7 @@ const searchFollowers = async (req, res) => {
       .status(400)
       .json({ error: "Failed to get users", details: error.message });
   }
-}
+};
 
 module.exports = {
   getFollowStatus,
@@ -281,5 +282,5 @@ module.exports = {
   getFollowing,
   getFollowersCount,
   searchFollowing,
-  searchFollowers
+  searchFollowers,
 };

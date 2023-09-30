@@ -73,6 +73,7 @@ const removeLike = async (req, res) => {
 const fetchUserLikes = async (req, res) => {
   try {
     const userId = req.params.id;
+    console.log(userId);
     if (!userId) {
       return {
         status: 400,
@@ -87,29 +88,29 @@ const fetchUserLikes = async (req, res) => {
         select: "first_name last_name username",
       },
     });
-    const modifiedData = data.map((x) => ({
-      _id: x.postId._id,
-      title: x.postId.title,
-      subject: x.postId.subject,
-      content: x.postId.content,
-      pdfLink: x.postId.pdfLink,
-      authorDetails: {
-        _id: x.postId.authorId._id,
-        first_name: x.postId.authorId.first_name,
-        last_name: x.postId.authorId.last_name,
-        username: x.postId.authorId.username,
-      },
-    }));
+    const modifiedData =
+      data.length > 0
+        ? data.map((x) => ({
+            _id: x.postId._id,
+            title: x.postId.title,
+            subject: x.postId.subject,
+            content: x.postId.content,
+            pdfLink: x.postId.pdfLink,
+            authorDetails: {
+              _id: x.postId.authorId._id,
+              first_name: x.postId.authorId.first_name,
+              last_name: x.postId.authorId.last_name,
+              username: x.postId.authorId.username,
+            },
+          }))
+        : [];
     const user = await User.findById(userId);
     const sub = {
       likedBy: user.username,
       data: modifiedData,
     };
     if (data.length === 0) {
-      return {
-        status: 404,
-        message: "Requested posts not found",
-      };
+      res.status(404).end({ message: "Zero Posts", data: sub });
     }
     res
       .status(201)
